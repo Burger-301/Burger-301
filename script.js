@@ -912,13 +912,17 @@ formularioPedido.addEventListener(
             `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
 
 
-        window.open(
-            url,
-            "_blank"
-        );
+ // Limpa o pedido após enviar para o WhatsApp
+carrinho = [];
 
-    }
-);
+atualizarCarrinho();
+
+formularioPedido.reset();
+
+window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
 
 
 /* =========================================
