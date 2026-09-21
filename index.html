@@ -1,381 +1,690 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+/* =========================================
+   CONFIGURAÇÕES GERAIS
+========================================= */
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Burger 301 - Hambúrgueres artesanais, porções e adicionais.">
-    <title>Burger 301</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-<body>
+html {
+    scroll-behavior: smooth;
+}
 
-    <!-- CABEÇALHO -->
-    <header class="cabecalho">
-        <div class="logo">
-            <h1>BURGER 301</h1>
-            <p>"O sabor que inspira."</p>
-        </div>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f5f5;
+    background-image: url("imagens/fundo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #222;
+    line-height: 1.6;
+}
 
-        <div class="informacoes-atendimento">
-            <p><strong>Sexta e sábado</strong></p>
-            <p>Das 19h30 às 22h</p>
-            <p>📍 Atendimento exclusivo para moradores do condomínio</p>
-        </div>
-    </header>
+/* =========================================
+   CABEÇALHO
+========================================= */
 
-    <main>
-        <!-- BANNER -->
-        <section class="banner"></section>
+.cabecalho {
+    background-color: #111;
+    color: white;
+    padding: 25px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
 
-        <!-- CARDÁPIO -->
-        <section id="cardapio" class="cardapio">
+.logo h1 {
+    font-size: 28px;
+    letter-spacing: 1px;
+}
 
-            <!-- HAMBÚRGUERES -->
-            <div class="titulo-secao">
-                <h2>🍔 Hambúrgueres</h2>
-                <p>Escolha seu hambúrguer e personalize com nossos adicionais.</p>
-            </div>
+.logo p {
+    color: #f28c28;
+    font-weight: bold;
+}
 
-            <!-- POEMA KIDS -->
-            <article class="produto">
-                <div class="produto-imagem">
-                    <img src="imagens/poema-kids.jpg" alt="Poema Kids">
-                </div>
-                <div class="produto-informacoes">
-                    <h3>Poema Kids</h3>
-                    <p class="descricao">
-                        Pão brioche selado na manteiga, smash bovinos de 75g, queijo mussarela e maionese da casa, acompanha porção de fritas.<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“É a vez dos pequenos.”
-                    </p>
-                    <p class="preco">R$ 25,00</p>
-                    <button type="button" class="botao-adicionar" data-produto="Poema Kids" data-preco="25.00">Adicionar</button>
-                </div>
-            </article>
+.informacoes-atendimento {
+    text-align: right;
+    font-size: 14px;
+}
 
-            <!-- SMASH 301 -->
-            <article class="produto">
-                <div class="produto-imagem">
-                    <img src="imagens/smash-301.jpg" alt="Smash 301">
-                </div>
-                <div class="produto-informacoes">
-                    <h3>Smash 301</h3>
-                    <p class="descricao">
-                        Pão brioche selado na manteiga, dois smash bovinos de 75g cada, queijo mussarela e maionese da casa.<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“Para aquela fominha.”
-                    </p>
-                    <p class="preco">R$ 29,00</p>
-                    <button type="button" class="botao-adicionar" data-produto="Smash 301" data-preco="29.00">Adicionar</button>
-                </div>
-            </article>
+.informacoes-atendimento strong {
+    color: #f28c28;
+}
 
-            <!-- CLÁSSICO DA CASA -->
-            <article class="produto">
-                <div class="produto-imagem">
-                    <img src="imagens/classico-da-casa.jpg" alt="Clássico da Casa">
-                </div>
-                <div class="produto-informacoes">
-                    <h3>Clássico da Casa</h3>
-                    <p class="descricao">
-                        Pão brioche selado na manteiga, blend bovino de 150g, queijo mussarela, alface, tomate e maionese da casa.<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“Clássico que não sai de moda.”
-                    </p>
-                    <p class="preco">R$ 32,00</p>
-                    <button type="button" class="botao-adicionar" data-produto="Clássico da Casa" data-preco="32.00">Adicionar</button>
-                </div>
-            </article>
+/* =========================================
+   BANNER
+========================================= */
 
-            <!-- DU'CHEF -->
-            <article class="produto">
-                <div class="produto-imagem">
-                    <img src="imagens/duchef.jpg" alt="Du'Chef">
-                </div>
-                <div class="produto-informacoes">
-                    <h3>Du'Chef</h3>
-                    <p class="descricao">
-                        Pão brioche selado na manteiga, blend bovino de 150g, queijo cheddar, cebola caramelizada, bacon e maionese da casa.<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“O favorito.”
-                    </p>
-                    <p class="preco">R$ 35,00</p>
-                    <button type="button" class="botao-adicionar" data-produto="Du'Chef" data-preco="35.00">Adicionar</button>
-                </div>
-            </article>
+.banner {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-image: url("imagens/banner.jpg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 50px 20px;
+}
 
-            <!-- POEMA TROPICAL -->
-            <article class="produto">
-                <div class="produto-imagem">
-                    <img src="imagens/poema-tropical.jpg" alt="Poema Tropical">
-                </div>
-                <div class="produto-informacoes">
-                    <h3>Poema Tropical</h3>
-                    <p class="descricao">
-                        Pão brioche selado na manteiga, blend bovino de 150g, queijo cheddar, bacon, rodela de abacaxi grelhado e maionese da casa.<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“Uma experiência gastronômica.”
-                    </p>
-                    <p class="preco">R$ 37,00</p>
-                    <button type="button" class="botao-adicionar" data-produto="Poema Tropical" data-preco="37.00">Adicionar</button>
-                </div>
-            </article>
+/* =========================================
+   CARDÁPIO
+========================================= */
 
-            <!-- PORÇÕES -->
-            <div class="titulo-secao">
-                <h2>🍟 Porções</h2>
-                <p>Complete seu pedido com nossas porções.</p>
-            </div>
+.cardapio {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px 20px 60px;
+}
 
-            <!-- FRITAS -->
-            <article class="produto">
-                <div class="produto-imagem">
-                    <img src="imagens/fritas.jpg" alt="Porção de Fritas">
-                </div>
-                <div class="produto-informacoes">
-                    <h3>Porção de Fritas</h3>
-                    <p class="descricao">
-                        Porção de batata frita (na air fryer) e um potinho de maionese da casa.<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“O que estava faltando.”
-                    </p>
-                    <p class="preco">R$ 10,00</p>
-                    <button type="button" class="botao-adicionar" data-produto="Porção de Fritas" data-preco="10.00">Adicionar</button>
-                </div>
-            </article>
+.titulo-secao {
+    text-align: center;
+    margin: 45px 0 30px;
+    background-color: rgba(255, 255, 255, 0.92);
+    padding: 18px 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
 
-            <!-- ONION RINGS -->
-            <article class="produto">
-                <div class="produto-imagem">
-                    <img src="imagens/onion-rings.jpg" alt="Porção de Onion Rings">
-                </div>
-                <div class="produto-informacoes">
-                    <h3>Porção de Onion Rings</h3>
-                    <p class="descricao">
-                        Porção de anéis de cebola fritos (na air fryer) e um potinho de maionese da casa.<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“Vai ficar de fora?”
-                    </p>
-                    <p class="preco">R$ 10,00</p>
-                    <button type="button" class="botao-adicionar" data-produto="Porção de Onion Rings" data-preco="10.00">Adicionar</button>
-                </div>
-            </article>
+.titulo-secao:first-child {
+    margin-top: 0;
+}
 
-            <!-- FRITAS FELIZ -->
-            <article class="produto">
-                <div class="produto-imagem">
-                    <img src="imagens/fritas-feliz.jpg" alt="Fritas Feliz">
-                </div>
-                <div class="produto-informacoes">
-                    <h3>Fritas Feliz</h3>
-                    <p class="descricao">
-                        Porção de batata frita carinha (na air fryer) e um potinho de maionese da casa.<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“Os pequenos adoram.”
-                    </p>
-                    <p class="preco">R$ 10,00</p>
-                    <button type="button" class="botao-adicionar" data-produto="Fritas Feliz" data-preco="10.00">Adicionar</button>
-                </div>
-            </article>
+.titulo-secao h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: #111;
+    font-weight: bold;
+}
 
-        </section>
+.titulo-secao p {
+    color: #444;
+    font-size: 16px;
+    font-weight: 500;
+}
 
-        <!-- MODAL DE PERSONALIZAÇÃO -->
-        <div id="modal-produto" class="modal" aria-hidden="true">
-            <div class="modal-conteudo">
-                <button type="button" id="fechar-modal" class="fechar-modal" aria-label="Fechar">×</button>
+/* =========================================
+   PRODUTOS
+========================================= */
 
-                <h2 id="modal-nome-produto">Personalizar pedido</h2>
-                <p id="modal-descricao-produto" class="modal-descricao"></p>
+.produto {
+    background-color: white;
+    display: flex;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
 
-                <div class="modal-preco">
-                    <span>Preço:</span>
-                    <strong id="modal-preco-produto">R$ 0,00</strong>
-                </div>
+.produto-imagem {
+    width: 280px;
+    min-height: 210px;
+}
 
-                <!-- ADICIONAIS -->
-                <div class="modal-secao">
-                    <h3>➕ Adicionais</h3>
-                    <p class="texto-ajuda">Selecione os adicionais desejados.</p>
+.produto-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
-                    <div class="lista-adicionais">
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Bacon" data-preco="5.00">
-                            <span>Bacon</span>
-                            <strong>+ R$ 5,00</strong>
-                        </label>
+.produto-informacoes {
+    flex: 1;
+    padding: 25px;
+}
 
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Cebola caramelizada" data-preco="4.00">
-                            <span>Cebola caramelizada</span>
-                            <strong>+ R$ 4,00</strong>
-                        </label>
+.produto-informacoes h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
 
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Abacaxi grelhado" data-preco="4.00">
-                            <span>Abacaxi grelhado</span>
-                            <strong>+ R$ 4,00</strong>
-                        </label>
+.descricao {
+    color: #666;
+    margin-bottom: 15px;
+}
 
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Blend bovino 150g" data-preco="8.00">
-                            <span>Blend bovino 150g</span>
-                            <strong>+ R$ 8,00</strong>
-                        </label>
+.preco {
+    font-size: 22px;
+    font-weight: bold;
+    color: #f28c28;
+    margin-bottom: 15px;
+}
 
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Smash bovino 75g" data-preco="5.00">
-                            <span>Smash bovino 75g</span>
-                            <strong>+ R$ 5,00</strong>
-                        </label>
+.botao-adicionar {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Queijo cheddar" data-preco="6.00">
-                            <span>Queijo cheddar</span>
-                            <strong>+ R$ 6,00</strong>
-                        </label>
+.botao-adicionar:hover {
+    background-color: #f28c28;
+}
 
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Queijo mussarela" data-preco="4.00">
-                            <span>Queijo mussarela</span>
-                            <strong>+ R$ 4,00</strong>
-                        </label>
+/* =========================================
+   ADICIONAIS E MODAL
+========================================= */
 
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Anéis de cebola" data-preco="4.00">
-                            <span>Anéis de cebola</span>
-                            <strong>+ R$ 4,00</strong>
-                        </label>
+.lista-adicionais {
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
 
-                        <label class="adicional">
-                            <input type="checkbox" name="adicional" value="Pote de maionese extra" data-preco="2.00" data-apenas-porcao="true">
-                            <span>Pote de maionese extra</span>
-                            <strong>+ R$ 2,00</strong>
-                        </label>
-                    </div>
-                </div>
+.adicional {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 5px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
 
-                <!-- QUANTIDADE -->
-                <div class="modal-secao quantidade-secao">
-                    <h3>Quantidade</h3>
-                    <div class="controle-quantidade">
-                        <button type="button" id="diminuir-quantidade">−</button>
-                        <span id="quantidade-produto">1</span>
-                        <button type="button" id="aumentar-quantidade">+</button>
-                    </div>
-                </div>
+.adicional:last-child {
+    border-bottom: none;
+}
 
-                <!-- OBSERVAÇÃO DO PRODUTO -->
-                <div class="modal-secao">
-                    <h3>📝 Observação</h3>
-                    <textarea id="observacao-produto" class="observacao-produto" placeholder="Ex.: sem cebola, pouca maionese, bem passado..." rows="3"></textarea>
-                </div>
+.adicional span {
+    flex: 1;
+}
 
-                <!-- TOTAL -->
-                <div class="modal-total">
-                    <span>Total:</span>
-                    <strong id="modal-total">R$ 0,00</strong>
-                </div>
+.adicional strong {
+    color: #f28c28;
+}
 
-                <button type="button" id="adicionar-carrinho-modal" class="botao-confirmar">ADICIONAR AO PEDIDO</button>
-            </div>
-        </div>
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.65);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
 
-        <!-- PAINEL DO CARRINHO -->
-        <aside id="carrinho" class="carrinho">
-            <div class="carrinho-painel">
-                <div class="carrinho-cabecalho">
-                    <div>
-                        <h2>🛒 Seu pedido</h2>
-                        <span id="quantidade-carrinho">0 itens</span>
-                    </div>
-                </div>
+.modal.ativo {
+    display: flex;
+}
 
-                <div id="itens-carrinho" class="itens-carrinho">
-                    <p class="carrinho-vazio">Seu carrinho está vazio.</p>
-                </div>
+.modal-conteudo {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 16px;
+    padding: 25px;
+    box-sizing: border-box;
+}
 
-                <div class="carrinho-total">
-                    <span>Total</span>
-                    <strong id="valor-total">R$ 0,00</strong>
-                </div>
+.fechar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: transparent;
+    font-size: 30px;
+    cursor: pointer;
+}
 
-                <div class="carrinho-botoes">
-                    <button type="button" id="continuar-comprando" class="botao-continuar">CONTINUAR COMPRANDO</button>
-                    <button type="button" id="finalizar-pedido" class="botao-finalizar" disabled>FINALIZAR PEDIDO</button>
-                </div>
-            </div>
-        </aside>
+.botao-confirmar {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f28c28;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        <!-- BARRA FIXA DO CARRINHO -->
-        <div id="carrinho-flutuante" class="carrinho-flutuante">
-            <div>
-                <strong>🛒 Seu pedido</strong>
-                <span id="resumo-carrinho">0 itens • R$ 0,00</span>
-            </div>
-            <button type="button" id="abrir-carrinho">VER PEDIDO</button>
-        </div>
+.botao-confirmar:hover {
+    background-color: #d96f0c;
+}
 
-        <!-- DADOS DO CLIENTE -->
-        <section id="dados-pedido" class="dados-pedido">
-            <div class="titulo-secao">
-                <h2>📋 Seus dados</h2>
-                <p>Informe os dados para identificarmos seu pedido.</p>
-            </div>
+.observacao-produto {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+}
 
-            <form id="formulario-pedido">
-                <div class="campo">
-                    <label for="nome">Nome *</label>
-                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
-                </div>
+.observacao-produto:focus {
+    outline: none;
+    border-color: #f28c28;
+}
 
-                <div class="campo">
-                    <label for="torre">Torre *</label>
-                    <input type="text" id="torre" name="torre" placeholder="Ex.: B" required>
-                </div>
+/* =========================================
+   CARRINHO E FLUTUANTE
+========================================= */
 
-                <div class="campo">
-                    <label for="apartamento">Apartamento *</label>
-                    <input type="text" id="apartamento" name="apartamento" placeholder="Ex.: 301" required>
-                </div>
+.carrinho {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    background-color: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
 
-                <div class="campo">
-                    <label>Forma de pagamento *</label>
-                    <label class="opcao-pagamento">
-                        <input type="radio" name="pagamento" value="Pix" required> 📱 Pix
-                    </label>
-                    <label class="opcao-pagamento">
-                        <input type="radio" name="pagamento" value="Dinheiro"> 💵 Dinheiro
-                    </label>
-                    <label class="opcao-pagamento">
-                        <input type="radio" name="pagamento" value="Cartão"> 💳 Cartão
-                    </label>
-                </div>
+.carrinho.aberto {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
 
-                <div class="campo" id="campo-troco" style="display: none;">
-                    <label for="troco">Precisa de troco para quanto?</label>
-                    <input type="text" id="troco" name="troco" placeholder="Ex.: R$ 50,00 ou Não preciso">
-                </div>
+.carrinho-painel {
+    width: 100%;
+    max-width: 460px;
+    height: 100%;
+    background-color: #fff;
+    padding: 25px;
+    overflow-y: auto;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
 
-                <div class="campo">
-                    <label for="observacao">Observação</label>
-                    <textarea id="observacao" name="observacao" rows="4" placeholder="Alguma observação geral sobre seu pedido?"></textarea>
-                </div>
+.carrinho.aberto .carrinho-painel {
+    transform: translateX(0);
+}
 
-                <p class="informacao-entrega">
-                    📍 A entrega é realizada na entrada da torre do condomínio.
-                </p>
+.carrinho-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #eee;
+}
 
-                <button type="submit" class="botao-enviar">ENVIAR PEDIDO PELO WHATSAPP</button>
-            </form>
-        </section>
-    </main>
+.carrinho-cabecalho h2 {
+    font-size: 24px;
+    margin-bottom: 3px;
+}
 
-    <!-- RODAPÉ -->
-    <footer class="rodape">
-        <h2>BURGER 301</h2>
-        <p class="slogan-rodape">"O sabor que inspira."</p>
-        <p>📍 Atendimento exclusivo aos moradores do condomínio.</p>
-        <p>Sexta e sábado • 19h30 às 22h</p>
-        <p class="copyright">Projeto desenvolvido para inclusão digital e otimização de pedidos.</p>
-    </footer>
+#quantidade-carrinho {
+    color: #777;
+    font-size: 14px;
+}
 
-    <!-- JAVASCRIPT -->
-    <script src="script.js"></script>
-</body>
+.fechar-carrinho {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #222;
+    font-size: 26px;
+    cursor: pointer;
+}
 
-</html>
+.itens-carrinho {
+    min-height: 60px;
+}
+
+.carrinho-vazio {
+    text-align: center;
+    color: #888;
+    padding: 40px 20px;
+}
+
+.item-carrinho {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-carrinho-info {
+    flex: 1;
+}
+
+.item-carrinho-info h3 {
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+.item-adicionais span {
+    color: #666;
+    font-size: 13px;
+    display: block;
+}
+
+.item-carrinho-acoes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.item-carrinho-acoes strong {
+    color: #f28c28;
+}
+
+.botao-remover {
+    border: none;
+    background: none;
+    color: #b00020;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.carrinho-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #eee;
+    margin-top: 25px;
+    padding-top: 20px;
+    font-size: 20px;
+}
+
+#valor-total {
+    color: #f28c28;
+    font-size: 24px;
+}
+
+.carrinho-botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.botao-continuar {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #111;
+    border-radius: 8px;
+    background-color: white;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-finalizar {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f28c28;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-finalizar:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.carrinho-flutuante {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, 150px);
+    width: calc(100% - 40px);
+    max-width: 700px;
+    padding: 14px 18px;
+    background-color: #111;
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    z-index: 900;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.carrinho-flutuante.visivel {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#abrir-carrinho {
+    border: none;
+    background-color: #f28c28;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* =========================================
+   CONTROLES DE QUANTIDADE
+========================================= */
+
+.controle-quantidade {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.controle-quantidade button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    color: #222;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controle-quantidade button:hover {
+    background-color: #f28c28;
+    color: white;
+    border-color: #f28c28;
+}
+
+.controle-quantidade strong {
+    min-width: 24px;
+    text-align: center;
+}
+
+/* =========================================
+   FORMULÁRIO
+========================================= */
+
+.dados-pedido {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    display: none;
+}
+
+.dados-pedido.visivel {
+    display: block;
+}
+
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.campo input,
+.campo textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #f28c28;
+}
+
+.opcao-pagamento {
+    display: inline-block !important;
+    margin-right: 20px;
+    font-weight: normal !important;
+    cursor: pointer;
+}
+
+.informacao-entrega {
+    background-color: #fff4e8;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #6b3b0a;
+}
+
+.botao-enviar {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f28c28;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-enviar:hover {
+    background-color: #d96f0c;
+}
+
+/* =========================================
+   NOTIFICAÇÃO DE SUCESSO
+========================================= */
+
+.mensagem-sucesso {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background-color: #222;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 420px;
+}
+
+/* =========================================
+   RODAPÉ
+========================================= */
+
+.rodape {
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+    margin-top: 50px;
+}
+
+.rodape h2 {
+    font-size: 32px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.rodape .slogan-rodape {
+    font-size: 16px;
+    color: #f28c28;
+    margin: 0 0 8px;
+    font-weight: 500;
+}
+
+.rodape p {
+    font-size: 15px;
+    margin: 5px 0;
+    color: #ccc;
+}
+
+.rodape .copyright {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(242, 140, 40, 0.35);
+    color: #f28c28;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 768px) {
+    .cabecalho {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .informacoes-atendimento {
+        text-align: center;
+    }
+
+    .produto {
+        flex-direction: column;
+    }
+
+    .produto-imagem {
+        width: 100%;
+        height: 230px;
+    }
+
+    .cardapio {
+        padding-top: 0;
+    }
+
+    .titulo-secao:first-child {
+        margin-top: -45px;
+    }
+}
