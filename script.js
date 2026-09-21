@@ -1,932 +1,450 @@
 /* =========================================
-   BURGER 301 POEMA
-   SISTEMA DE PEDIDOS - VERSÃO 2
+   BURGER 301 - SISTEMA DE PEDIDOS
 ========================================= */
 
 let carrinho = [];
 let produtoAtual = null;
 let quantidadeAtual = 1;
 
+/* =========================================
+   CONTROLE AUTOMÁTICO DE HORÁRIO
+========================================= */
+
+function pedidosEstaoAbertos() {
+    const agora = new Date();
+    const dia = agora.getDay();
+    const hora = agora.getHours();
+    const minutos = agora.getMinutes();
+
+    const horarioAtual = hora * 60 + minutos;
+    const inicio = 19 * 60 + 30; // 19h30
+    const fim = 22 * 60;        // 22h00
+
+    const diaValido = (dia === 5 || dia === 6); // Sexta (5) ou Sábado (6)
+    const horarioValido = (horarioAtual >= inicio && horarioAtual < fim);
+
+    return diaValido && horarioValido;
+}
+
+function mostrarAvisoForaDoExpediente() {
+    mostrarMensagem(
+        "🍔 Pedidos fechados no momento! Nosso atendimento funciona às sextas e sábados, das 19h30 às 22h. Burger 301 agradece pela compreensão! ❤️"
+    );
+}
 
 /* =========================================
-   ELEMENTOS
+   ELEMENTOS DO DOM
 ========================================= */
 
 const modal = document.getElementById("modal-produto");
+const observacaoProduto = document.getElementById("observacao-produto");
 const fecharModal = document.getElementById("fechar-modal");
+const modalNomeProduto = document.getElementById("modal-nome-produto");
+const modalDescricaoProduto = document.getElementById("modal-descricao-produto");
+const modalPrecoProduto = document.getElementById("modal-preco-produto");
+const modalTotal = document.getElementById("modal-total");
+const quantidadeProduto = document.getElementById("quantidade-produto");
+const diminuirQuantidade = document.getElementById("diminuir-quantidade");
+const aumentarQuantidade = document.getElementById("aumentar-quantidade");
+const adicionarCarrinhoModal = document.getElementById("adicionar-carrinho-modal");
 
-const modalNomeProduto =
-    document.getElementById("modal-nome-produto");
-
-const modalDescricaoProduto =
-    document.getElementById("modal-descricao-produto");
-
-const modalPrecoProduto =
-    document.getElementById("modal-preco-produto");
-
-const modalTotal =
-    document.getElementById("modal-total");
-
-const quantidadeProduto =
-    document.getElementById("quantidade-produto");
-
-const diminuirQuantidade =
-    document.getElementById("diminuir-quantidade");
-
-const aumentarQuantidade =
-    document.getElementById("aumentar-quantidade");
-
-const adicionarCarrinhoModal =
-    document.getElementById("adicionar-carrinho-modal");
-
-const itensCarrinho =
-    document.getElementById("itens-carrinho");
-
-const quantidadeCarrinho =
-    document.getElementById("quantidade-carrinho");
-
-const valorTotal =
-    document.getElementById("valor-total");
-
-const finalizarPedido =
-    document.getElementById("finalizar-pedido");
-
-const continuarComprando =
-    document.getElementById("continuar-comprando");
-
-const carrinhoFlutuante =
-    document.getElementById("carrinho-flutuante");
-
-const abrirCarrinho =
-    document.getElementById("abrir-carrinho");
-
-const fecharCarrinho =
-    document.getElementById("fechar-carrinho");
-
-const resumoCarrinho =
-    document.getElementById("resumo-carrinho");
-
-const formularioPedido =
-    document.getElementById("formulario-pedido");
-
+const itensCarrinho = document.getElementById("itens-carrinho");
+const quantidadeCarrinho = document.getElementById("quantidade-carrinho");
+const valorTotal = document.getElementById("valor-total");
+const finalizarPedido = document.getElementById("finalizar-pedido");
+const continuarComprando = document.getElementById("continuar-comprando");
+const carrinhoFlutuante = document.getElementById("carrinho-flutuante");
+const abrirCarrinho = document.getElementById("abrir-carrinho");
+const resumoCarrinho = document.getElementById("resumo-carrinho");
+const formularioPedido = document.getElementById("formulario-pedido");
 const painelCarrinho = document.getElementById("carrinho");
 
-
 /* =========================================
-   FORMATA MOEDA
+   AUXILIARES
 ========================================= */
 
 function formatarMoeda(valor) {
-
     return valor.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL"
     });
-
 }
-
-
-/* =========================================
-   DESCRIÇÕES
-========================================= */
 
 const descricoes = {
-
-    "Poema Kids":
-        "Uma opção especial para quem prefere um hambúrguer menor.",
-
-    "Smash 301":
-        "Hambúrguer no estilo smash, preparado com carne bovina e ingredientes selecionados.",
-
-    "Clássico da Casa":
-        "Uma combinação clássica da Burger 301 para quem gosta de um hambúrguer tradicional.",
-
-    "Du'Chef":
-        "Pão brioche selado na manteiga, blend bovino de 150g, queijo cheddar, cebola caramelizada, bacon e maionese da casa.",
-
-    "Poema Tropical":
-        "Uma opção especial da casa com uma combinação de sabores tropicais.",
-
-    "Porção de Fritas":
-        "Porção de batatas fritas.",
-
-    "Porção de Onion Rings":
-        "Anéis de cebola empanados e crocantes.",
-
-    "Fritas Feliz":
-        "Porção especial de fritas."
-
+    "Poema Kids": "Uma opção especial para quem prefere um hambúrguer menor.",
+    "Smash 301": "Hambúrguer no estilo smash, preparado com carne bovina e ingredientes selecionados.",
+    "Clássico da Casa": "Uma combinação clássica da Burger 301 para quem gosta de um hambúrguer tradicional.",
+    "Du'Chef": "Pão brioche selado na manteiga, blend bovino de 150g, queijo cheddar, cebola caramelizada, bacon e maionese da casa.",
+    "Poema Tropical": "Uma opção especial da casa com uma combinação de sabores tropicais.",
+    "Porção de Fritas": "Porção de batatas fritas.",
+    "Porção de Onion Rings": "Anéis de cebola empanados e crocantes.",
+    "Fritas Feliz": "Porção especial de fritas."
 };
 
-
 /* =========================================
-   ABRIR MODAL
+   MODAL DE PRODUTO
 ========================================= */
 
-const botoesAdicionar =
-    document.querySelectorAll(".botao-adicionar");
-
+const botoesAdicionar = document.querySelectorAll(".botao-adicionar");
 
 botoesAdicionar.forEach(function (botao) {
-
     botao.addEventListener("click", function () {
+        if (!pedidosEstaoAbertos()) {
+            mostrarAvisoForaDoExpediente();
+            return;
+        }
 
-        const nome =
-            botao.dataset.produto;
+        const nome = botao.dataset.produto;
+        const preco = parseFloat(botao.dataset.preco);
 
-        const preco =
-            parseFloat(botao.dataset.preco);
-
-
-        produtoAtual = {
-            nome: nome,
-            preco: preco
-        };
-
-
+        produtoAtual = { nome, preco };
         quantidadeAtual = 1;
+        observacaoProduto.value = "";
 
+        modalNomeProduto.textContent = nome;
+        modalDescricaoProduto.textContent = descricoes[nome] || "";
+        modalPrecoProduto.textContent = formatarMoeda(preco);
+        quantidadeProduto.textContent = quantidadeAtual;
 
-        modalNomeProduto.textContent =
-            nome;
+        document.querySelectorAll('#modal-produto input[name="adicional"]').forEach(checkbox => checkbox.checked = false);
 
-        modalDescricaoProduto.textContent =
-            descricoes[nome] || "";
-
-        modalPrecoProduto.textContent =
-            formatarMoeda(preco);
-
-        quantidadeProduto.textContent =
-            quantidadeAtual;
-
-
-        // Limpa adicionais
-        document
-            .querySelectorAll(
-                '#modal-produto input[name="adicional"]'
-            )
-            .forEach(function (checkbox) {
-
-                checkbox.checked = false;
-
-            });
-
-
+        ajustarAdicionaisPorPorcao(nome);
         atualizarTotalModal();
-
 
         modal.classList.add("ativo");
-
-        modal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
+        modal.setAttribute("aria-hidden", "false");
     });
-
 });
 
-
-/* =========================================
-   FECHAR MODAL
-========================================= */
-
-fecharModal.addEventListener(
-    "click",
-    fecharModalProduto
-);
-
+fecharModal.addEventListener("click", fecharModalProduto);
 
 function fecharModalProduto() {
-
     modal.classList.remove("ativo");
-
-    modal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
+    modal.setAttribute("aria-hidden", "true");
     produtoAtual = null;
-
 }
-
-
-/* =========================================
-   CLICAR FORA DO MODAL
-========================================= */
 
 modal.addEventListener("click", function (evento) {
-
-    if (evento.target === modal) {
-
-        fecharModalProduto();
-
-    }
-
+    if (evento.target === modal) fecharModalProduto();
 });
 
+aumentarQuantidade.addEventListener("click", function () {
+    quantidadeAtual++;
+    quantidadeProduto.textContent = quantidadeAtual;
+    atualizarTotalModal();
+});
 
-/* =========================================
-   QUANTIDADE +
-========================================= */
-
-aumentarQuantidade.addEventListener(
-    "click",
-    function () {
-
-        quantidadeAtual++;
-
-        quantidadeProduto.textContent =
-            quantidadeAtual;
-
+diminuirQuantidade.addEventListener("click", function () {
+    if (quantidadeAtual > 1) {
+        quantidadeAtual--;
+        quantidadeProduto.textContent = quantidadeAtual;
         atualizarTotalModal();
-
     }
-);
-
-
-/* =========================================
-   QUANTIDADE -
-========================================= */
-
-diminuirQuantidade.addEventListener(
-    "click",
-    function () {
-
-        if (quantidadeAtual > 1) {
-
-            quantidadeAtual--;
-
-            quantidadeProduto.textContent =
-                quantidadeAtual;
-
-            atualizarTotalModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   ADICIONAIS SELECIONADOS
-========================================= */
+});
 
 function obterAdicionaisSelecionados() {
-
     const adicionais = [];
-
-
-    document
-        .querySelectorAll(
-            '#modal-produto input[name="adicional"]:checked'
-        )
-        .forEach(function (checkbox) {
-
-            adicionais.push({
-
-                nome: checkbox.value,
-
-                preco:
-                    parseFloat(
-                        checkbox.dataset.preco
-                    )
-
-            });
-
+    document.querySelectorAll('#modal-produto input[name="adicional"]:checked').forEach(function (checkbox) {
+        adicionais.push({
+            nome: checkbox.value,
+            preco: parseFloat(checkbox.dataset.preco)
         });
-
-
+    });
     return adicionais;
-
 }
-
-
-/* =========================================
-   TOTAL DO PRODUTO
-========================================= */
 
 function calcularTotalProduto() {
-
-    if (!produtoAtual) {
-
-        return 0;
-
-    }
-
-
+    if (!produtoAtual) return 0;
     let adicionaisTotal = 0;
-
-
-    obterAdicionaisSelecionados()
-        .forEach(function (adicional) {
-
-            adicionaisTotal +=
-                adicional.preco;
-
-        });
-
-
-    return (
-        produtoAtual.preco +
-        adicionaisTotal
-    ) * quantidadeAtual;
-
+    obterAdicionaisSelecionados().forEach(adicional => adicionaisTotal += adicional.preco);
+    return (produtoAtual.preco + adicionaisTotal) * quantidadeAtual;
 }
-
-
-/* =========================================
-   ATUALIZA TOTAL DO MODAL
-========================================= */
 
 function atualizarTotalModal() {
-
-    modalTotal.textContent =
-        formatarMoeda(
-            calcularTotalProduto()
-        );
-
+    modalTotal.textContent = formatarMoeda(calcularTotalProduto());
 }
 
+document.querySelectorAll('#modal-produto input[name="adicional"]').forEach(checkbox => {
+    checkbox.addEventListener("change", atualizarTotalModal);
+});
 
-/* =========================================
-   ALTERAÇÃO DOS ADICIONAIS
-========================================= */
+/* FILTRO DE ADICIONAIS DE PORÇÕES */
+function ajustarAdicionaisPorPorcao(nomeProduto) {
+    const nomesPorcoes = new Set(["Porção de Fritas", "Porção de Onion Rings", "Fritas Feliz"]);
+    const ehPorcao = nomesPorcoes.has(nomeProduto);
 
-document
-    .querySelectorAll(
-        '#modal-produto input[name="adicional"]'
-    )
-    .forEach(function (checkbox) {
+    document.querySelectorAll('#modal-produto .adicional').forEach(adicional => {
+        const input = adicional.querySelector('input[type="checkbox"]');
+        if (!input) return;
 
-        checkbox.addEventListener(
-            "change",
-            atualizarTotalModal
-        );
+        const somentePorcao = input.dataset.apenasPorcao === "true";
 
-    });
-
-
-/* =========================================
-   ADICIONAR AO CARRINHO
-========================================= */
-
-adicionarCarrinhoModal.addEventListener(
-    "click",
-    function () {
-
-        if (!produtoAtual) {
-
-            return;
-
-        }
-
-
-        const adicionais =
-            obterAdicionaisSelecionados();
-
-
-        let adicionaisTotal = 0;
-
-
-        adicionais.forEach(
-            function (adicional) {
-
-                adicionaisTotal +=
-                    adicional.preco;
-
+        if (ehPorcao) {
+            if (somentePorcao) {
+                adicional.style.display = "";
+                input.disabled = false;
+            } else {
+                adicional.style.display = "none";
+                input.checked = false;
+                input.disabled = true;
             }
-        );
-
-
-        const valorUnitario =
-            produtoAtual.preco +
-            adicionaisTotal;
-
-
-        const novoItem = {
-
-            id: Date.now(),
-
-            nome:
-                produtoAtual.nome,
-
-            precoBase:
-                produtoAtual.preco,
-
-            quantidade:
-                quantidadeAtual,
-
-            adicionais:
-                adicionais,
-
-            valorUnitario:
-                valorUnitario
-
-        };
-
-
-        carrinho.push(novoItem);
-
-
-        atualizarCarrinho();
-
-
-        fecharModalProduto();
-
-
-        mostrarMensagem(
-            `${quantidadeAtual}x ${produtoAtual?.nome || "Produto"} adicionado ao pedido!`
-        );
-
-
-        // Mantém o usuário no mesmo ponto da página.
-
-    }
-);
-
+        } else {
+            adicional.style.display = "";
+            input.disabled = false;
+        }
+    });
+}
 
 /* =========================================
-   ATUALIZA CARRINHO
+   INSERIR NO CARRINHO
+========================================= */
+
+adicionarCarrinhoModal.addEventListener("click", function () {
+    if (!produtoAtual) return;
+
+    const adicionais = obterAdicionaisSelecionados();
+    const observacao = observacaoProduto.value.trim();
+    let adicionaisTotal = 0;
+    adicionais.forEach(adicional => adicionaisTotal += adicional.preco);
+
+    const valorUnitario = produtoAtual.preco + adicionaisTotal;
+
+    const novoItem = {
+        id: Date.now(),
+        nome: produtoAtual.nome,
+        precoBase: produtoAtual.preco,
+        quantidade: quantidadeAtual,
+        adicionais: adicionais,
+        observacao: observacao,
+        valorUnitario: valorUnitario
+    };
+
+    carrinho.push(novoItem);
+    atualizarCarrinho();
+    fecharModalProduto();
+    mostrarMensagem(`${quantidadeAtual}x ${novoItem.nome} adicionado ao pedido!`);
+});
+
+/* =========================================
+   GESTÃO DO CARRINHO
 ========================================= */
 
 function atualizarCarrinho() {
-
     itensCarrinho.innerHTML = "";
 
-
     if (carrinho.length === 0) {
-
-        itensCarrinho.innerHTML = `
-            <p class="carrinho-vazio">
-                Seu carrinho está vazio.
-            </p>
-        `;
-
-        quantidadeCarrinho.textContent =
-            "0 itens";
-
-        valorTotal.textContent =
-            formatarMoeda(0);
-
-        resumoCarrinho.textContent =
-            "0 itens • R$ 0,00";
-
+        itensCarrinho.innerHTML = `<p class="carrinho-vazio">Seu carrinho está vazio.</p>`;
+        quantidadeCarrinho.textContent = "0 itens";
+        valorTotal.textContent = formatarMoeda(0);
+        resumoCarrinho.textContent = "0 itens • R$ 0,00";
         finalizarPedido.disabled = true;
-
-        carrinhoFlutuante.classList.remove(
-            "visivel"
-        );
-
+        carrinhoFlutuante.classList.remove("visivel");
         return;
-
     }
-
 
     let total = 0;
     let quantidadeItens = 0;
 
-
     carrinho.forEach(function (item) {
-
-        const subtotal =
-            item.valorUnitario *
-            item.quantidade;
-
-
+        const subtotal = item.valorUnitario * item.quantidade;
         total += subtotal;
+        quantidadeItens += item.quantidade;
 
-        quantidadeItens +=
-            item.quantidade;
-
-
-        const divItem =
-            document.createElement("div");
-
-
-        divItem.className =
-            "item-carrinho";
-
+        const divItem = document.createElement("div");
+        divItem.className = "item-carrinho";
 
         let adicionaisHTML = "";
-
-
         if (item.adicionais.length > 0) {
-
             adicionaisHTML = `
                 <div class="item-adicionais">
-
-                    ${item.adicionais
-                        .map(function (adicional) {
-
-                            return `
-                                <span>
-                                    + ${adicional.nome}
-                                </span>
-                            `;
-
-                        })
-                        .join("")}
-
+                    ${item.adicionais.map(adicional => `<span>+ ${adicional.nome} —${formatarMoeda(adicional.preco)}</span>`).join("")}
                 </div>
             `;
-
         }
-
 
         divItem.innerHTML = `
-
             <div class="item-carrinho-info">
-
-                <h3>
-                    ${item.quantidade}x ${item.nome}
-                </h3>
-
-                ${adicionaisHTML}
-
-                <p>
-                    ${formatarMoeda(item.valorUnitario)}
-                    cada
+                <h3>${item.nome}</h3>
+                <p class="controle-quantidade">
+                    <span>Qtd:</span>
+                    <button type="button" class="botao-diminuir" data-id="${item.id}">−</button>
+                    <strong>${item.quantidade}</strong>
+                    <button type="button" class="botao-aumentar" data-id="${item.id}">+</button>
                 </p>
-
+                ${adicionaisHTML}
+                ${item.observacao ? `<div class="item-observacao">📝 ${item.observacao}</div>` : ""}
             </div>
-
-
             <div class="item-carrinho-acoes">
-
-                <strong>
-                    ${formatarMoeda(subtotal)}
-                </strong>
-
-                <button
-                    type="button"
-                    class="botao-remover"
-                    data-id="${item.id}">
-
-                    Remover
-
-                </button>
-
+                <strong>${formatarMoeda(subtotal)}</strong>
+                <button type="button" class="botao-remover" data-id="${item.id}">Remover</button>
             </div>
-
         `;
 
-
-        itensCarrinho.appendChild(
-            divItem
-        );
-
+        itensCarrinho.appendChild(divItem);
     });
 
-
-    quantidadeCarrinho.textContent =
-        quantidadeItens +
-        (
-            quantidadeItens === 1
-                ? " item"
-                : " itens"
-        );
-
-
-    valorTotal.textContent =
-        formatarMoeda(total);
-
-
-    resumoCarrinho.textContent =
-        `${quantidadeItens} ${
-            quantidadeItens === 1
-                ? "item"
-                : "itens"
-        } • ${formatarMoeda(total)}`;
-
-
+    quantidadeCarrinho.textContent = `${quantidadeItens} ${quantidadeItens === 1 ? "item" : "itens"}`;
+    valorTotal.textContent = formatarMoeda(total);
+    resumoCarrinho.textContent = `${quantidadeItens} ${quantidadeItens === 1 ? "item" : "itens"} • ${formatarMoeda(total)}`;
     finalizarPedido.disabled = false;
+    carrinhoFlutuante.classList.add("visivel");
 
-
-    // Mostra a barra flutuante
-    carrinhoFlutuante.classList.add(
-        "visivel"
-    );
-
-
-    configurarBotoesRemover();
-
+    configurarBotoesCarrinho();
 }
 
-
-/* =========================================
-   REMOVER ITEM
-========================================= */
-
-function configurarBotoesRemover() {
-
-    document
-        .querySelectorAll(
-            ".botao-remover"
-        )
-        .forEach(function (botao) {
-
-            botao.addEventListener(
-                "click",
-                function () {
-
-                    const id =
-                        Number(
-                            botao.dataset.id
-                        );
-
-
-                    carrinho =
-                        carrinho.filter(
-                            function (item) {
-
-                                return (
-                                    item.id !== id
-                                );
-
-                            }
-                        );
-
-
-                    atualizarCarrinho();
-
-                }
-            );
-
+function configurarBotoesCarrinho() {
+    document.querySelectorAll(".botao-remover").forEach(botao => {
+        botao.addEventListener("click", function () {
+            const id = Number(botao.dataset.id);
+            carrinho = carrinho.filter(item => item.id !== id);
+            atualizarCarrinho();
         });
+    });
 
+    document.querySelectorAll(".botao-aumentar").forEach(botao => {
+        botao.addEventListener("click", function () {
+            const id = Number(botao.dataset.id);
+            const item = carrinho.find(item => item.id === id);
+            if (item) {
+                item.quantidade++;
+                atualizarCarrinho();
+            }
+        });
+    });
+
+    document.querySelectorAll(".botao-diminuir").forEach(botao => {
+        botao.addEventListener("click", function () {
+            const id = Number(botao.dataset.id);
+            const item = carrinho.find(item => item.id === id);
+            if (item) {
+                item.quantidade--;
+                if (item.quantidade <= 0) {
+                    carrinho = carrinho.filter(item => item.id !== id);
+                }
+                atualizarCarrinho();
+            }
+        });
+    });
 }
 
+abrirCarrinho.addEventListener("click", () => painelCarrinho.classList.add("aberto"));
+continuarComprando.addEventListener("click", () => painelCarrinho.classList.remove("aberto"));
 
-/* =========================================
-   ABRIR CARRINHO
-========================================= */
+finalizarPedido.addEventListener("click", function () {
+    if (carrinho.length === 0) return;
 
-abrirCarrinho.addEventListener("click", function() {
-  painelCarrinho.classList.add("aberto");
+    if (!pedidosEstaoAbertos()) {
+        mostrarAvisoForaDoExpediente();
+        return;
+    }
+
+    painelCarrinho.classList.remove("aberto");
+    const dadosPedido = document.getElementById("dados-pedido");
+    dadosPedido.classList.add("visivel");
+
+    setTimeout(() => dadosPedido.scrollIntoView({ behavior: "smooth" }), 100);
 });
 
-fecharCarrinho.addEventListener("click", function() {
-  painelCarrinho.classList.remove("aberto");
+/* CAMPO DE TROCO DINÂMICO */
+document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
+    radio.addEventListener("change", function () {
+        const campoTroco = document.getElementById("campo-troco");
+        if (this.value === "Dinheiro") {
+            campoTroco.style.display = "block";
+        } else {
+            campoTroco.style.display = "none";
+        }
+    });
 });
 
-
 /* =========================================
-   CONTINUAR COMPRANDO
+   ENVIAR PEDIDO VIA WHATSAPP
 ========================================= */
 
-continuarComprando.addEventListener("click", function() {
-  painelCarrinho.classList.remove("aberto");
+formularioPedido.addEventListener("submit", function (evento) {
+    evento.preventDefault();
+
+    if (!pedidosEstaoAbertos()) {
+        mostrarAvisoForaDoExpediente();
+        return;
+    }
+
+    if (carrinho.length === 0) {
+        alert("Adicione pelo menos um produto ao pedido.");
+        return;
+    }
+
+    const nome = document.getElementById("nome").value.trim();
+    const torre = document.getElementById("torre").value.trim();
+    const apartamento = document.getElementById("apartamento").value.trim();
+    const observacao = document.getElementById("observacao").value.trim();
+    const pagamentoSelecionado = document.querySelector('input[name="pagamento"]:checked');
+    const troco = document.getElementById("troco").value.trim();
+
+    if (!nome || !torre || !apartamento || !pagamentoSelecionado) {
+        alert("Preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    const pagamento = pagamentoSelecionado.value;
+
+    let mensagem = `🍔 *NOVO PEDIDO - BURGER 301*\n\n`;
+    mensagem += `Cliente: ${nome}\n`;
+    mensagem += `Torre: ${torre}\n`;
+    mensagem += `Apartamento: ${apartamento}\n\n`;
+    mensagem += `*PEDIDO*\n\n`;
+
+    let totalPedido = 0;
+
+    carrinho.forEach(function (item) {
+        const subtotal = item.valorUnitario * item.quantidade;
+        totalPedido += subtotal;
+
+        mensagem += `${item.quantidade}x ${item.nome} - ${formatarMoeda(item.precoBase * item.quantidade)}\n`;
+
+        if (item.adicionais && item.adicionais.length > 0) {
+            item.adicionais.forEach(adicional => {
+                mensagem += `   + ${adicional.nome} - ${formatarMoeda(adicional.preco)}\n`;
+            });
+        }
+
+        if (item.observacao) {
+            mensagem += `   Obs: ${item.observacao}\n`;
+        }
+        mensagem += "\n";
+    });
+
+    mensagem += `*TOTAL: ${formatarMoeda(totalPedido)}*\n\n`;
+    mensagem += `*PAGAMENTO:* ${pagamento}\n`;
+
+    if (pagamento === "Dinheiro" && troco) {
+        mensagem += `*TROCO:* ${troco}\n`;
+    }
+
+    if (observacao) {
+        mensagem += `\n*OBSERVAÇÃO GERAL:*\n${observacao}\n`;
+    }
+
+    mensagem += "\n_Pedido realizado pelo site._";
+
+    const telefone = "5551981061618";
+    const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+
+    window.open(url, "_blank");
+
+    carrinho = [];
+    atualizarCarrinho();
+    formularioPedido.reset();
 });
-
-
-/* =========================================
-   FINALIZAR PEDIDO
-========================================= */
-
-finalizarPedido.addEventListener("click", function() {
-  if (carrinho.length === 0) return;
-
-  painelCarrinho.classList.remove("aberto");
-
-  document.getElementById("dados-pedido").scrollIntoView({
-    behavior: "smooth"
-  });
-});
-
-
-/* =========================================
-   MENSAGEM
-========================================= */
 
 function mostrarMensagem(texto) {
+    const mensagem = document.createElement("div");
+    mensagem.className = "mensagem-sucesso";
+    mensagem.textContent = texto;
+    document.body.appendChild(mensagem);
 
-    const mensagem =
-        document.createElement("div");
-
-
-    mensagem.className =
-        "mensagem-sucesso";
-
-
-    mensagem.textContent =
-        texto;
-
-
-    document.body.appendChild(
-        mensagem
-    );
-
-
-    setTimeout(function () {
-
-        mensagem.remove();
-
-    }, 2200);
-
+    setTimeout(() => mensagem.remove(), 2500);
 }
 
-
-/* =========================================
-   FORMULÁRIO
-========================================= */
-
-formularioPedido.addEventListener(
-    "submit",
-    function (evento) {
-
-        evento.preventDefault();
-
-
-        if (carrinho.length === 0) {
-
-            alert(
-                "Adicione pelo menos um produto ao pedido."
-            );
-
-            return;
-
-        }
-
-
-        const nome =
-            document
-                .getElementById("nome")
-                .value
-                .trim();
-
-
-        const torre =
-            document
-                .getElementById("torre")
-                .value
-                .trim();
-
-
-        const apartamento =
-            document
-                .getElementById("apartamento")
-                .value
-                .trim();
-
-
-        const observacao =
-            document
-                .getElementById("observacao")
-                .value
-                .trim();
-
-
-        const pagamentoSelecionado =
-            document.querySelector(
-                'input[name="pagamento"]:checked'
-            );
-
-
-        if (
-            !nome ||
-            !torre ||
-            !apartamento
-        ) {
-
-            alert(
-                "Preencha seu nome, torre e apartamento."
-            );
-
-            return;
-
-        }
-
-
-        if (!pagamentoSelecionado) {
-
-            alert(
-                "Escolha uma forma de pagamento."
-            );
-
-            return;
-
-        }
-
-
-        const pagamento =
-            pagamentoSelecionado.value;
-
-
-        /* =====================================
-           MENSAGEM WHATSAPP
-        ===================================== */
-
-        let mensagem =
-            "🍔 *NOVO PEDIDO - BURGER 301 POEMA*\n\n";
-
-
-    
-        mensagem +=
-            `Nome: ${nome}\n`;
-
-        mensagem +=
-            `Torre: ${torre}\n`;
-
-        mensagem +=
-            `Apartamento: ${apartamento}\n\n`;
-
-
-        mensagem +=
-            "*PEDIDO*\n\n";
-
-
-        let totalPedido = 0;
-
-
-        carrinho.forEach(function (item) {
-
-            const subtotal =
-                item.valorUnitario *
-                item.quantidade;
-
-
-            totalPedido +=
-                subtotal;
-
-
-            mensagem +=
-                `${item.quantidade}x ${item.nome} - ${formatarMoeda(subtotal)}\n`;
-
-
-            if (
-                item.adicionais.length > 0
-            ) {
-
-                item.adicionais.forEach(
-                    function (adicional) {
-
-                        mensagem +=
-                            `   + ${adicional.nome}\n`;
-
-                    }
-                );
-
-            }
-
-
-            mensagem += "\n";
-
-        });
-
-
-        mensagem +=
-            `*TOTAL: ${formatarMoeda(totalPedido)}*\n\n`;
-
-
-        mensagem +=
-            `*PAGAMENTO:* ${pagamento}\n`;
-
-
-        if (observacao) {
-
-            mensagem +=
-                "\n*OBSERVAÇÃO:*\n";
-
-            mensagem +=
-                `${observacao}\n`;
-
-        }
-
-
-
-
-        mensagem +=
-            "\n_Pedido realizado pelo site._";
-
-
-        /*
-            SUBSTITUIR PELO WHATSAPP REAL
-        */
-
-        const telefone =
-            "5551981061618";
-
-
-        const url =
-            `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-
-
- // Limpa o pedido após enviar para o WhatsApp
-carrinho = [];
-
-atualizarCarrinho();
-
-formularioPedido.reset();
-
-window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-});
-
-
-/* =========================================
-   INICIALIZAÇÃO
-========================================= */
-
+/* INITIALIZAÇÃO */
 atualizarCarrinho();
