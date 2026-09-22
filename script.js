@@ -8,21 +8,41 @@ let quantidadeAtual = 1;
 
 /* =========================================
    CONTROLE RÁPIDO DE ESTOQUE / ESGOTADOS
+   
+   COMO USAR:
+   - Para MARCAR como esgotado: remova as // do início do nome.
+   - Para MARCAR como disponível: coloque as // no início do nome.
 ========================================= */
 
-// 1. Liste os LANCHES e PORÇÕES esgotados
+// 1. LISTA DE PRODUTOS (Hambúrgueres e Porções)(APAGUE "//" PARA BLOQUEAR E ADICIONE "//"PARA LIBERAR)
 const produtosEsgotados = [
+    // "Poema Kids",
     // "Smash 301",
+    // "Clássico da Casa",
+    // "Du'Chef",
+    // "Poema Tropical",
+    // "Porção de Fritas",
+    // "Porção de Onion Rings",
     // "Fritas Feliz"
 ];
 
-// 2. Liste os ADICIONAIS esgotados
+// 2. LISTA DE ADICIONAIS
 const adicionaisEsgotados = [
     // "Bacon",
+    // "Cebola caramelizada",
     // "Abacaxi grelhado",
-    // "Queijo cheddar"
+    // "Blend bovino 150g",
+    // "Smash bovino 75g",
+    // "Queijo cheddar",
+    // "Queijo mussarela",
+    // "Anéis de cebola",
+    // "Pote de maionese extra"
 ];
 
+
+/* =========================================
+   FUNÇÃO AUTOMÁTICA DE ATUALIZAÇÃO
+========================================= */
 function atualizarEstoqueGeral() {
     
     /* --- A. BLOQUEIO DE PRODUTOS --- */
@@ -70,7 +90,6 @@ function atualizarEstoqueGeral() {
         const labelAdicional = checkbox.closest(".adicional");
 
         if (adicionaisEsgotados.includes(nomeAdicional)) {
-            // Desativa a caixinha e desmarca se estivesse marcada
             checkbox.disabled = true;
             checkbox.checked = false;
 
@@ -78,7 +97,6 @@ function atualizarEstoqueGeral() {
                 labelAdicional.style.opacity = "0.5";
                 labelAdicional.style.cursor = "not-allowed";
 
-                // Adiciona a indicação "(ESGOTADO)" apenas uma vez
                 const spanNome = labelAdicional.querySelector("span");
                 if (spanNome && !spanNome.textContent.includes("(ESGOTADO)")) {
                     spanNome.textContent += " (ESGOTADO)";
@@ -89,7 +107,7 @@ function atualizarEstoqueGeral() {
     });
 }
 
-// Executa automaticamente ao carregar a página e ao abrir o modal
+// Executa ao carregar e ao abrir qualquer modal
 document.addEventListener("DOMContentLoaded", atualizarEstoqueGeral);
 document.addEventListener("click", function (e) {
     if (e.target.closest(".botao-adicionar")) {
@@ -97,7 +115,7 @@ document.addEventListener("click", function (e) {
     }
 });
 
-
+
 /* =========================================
    CONTROLE AUTOMÁTICO DE HORÁRIO
 ========================================= */
