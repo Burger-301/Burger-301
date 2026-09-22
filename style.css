@@ -662,3 +662,22 @@ body {
         padding: 12px !important;
     }
 }
+/* Aproxima o menu do banner */
+.cardapio {
+    padding-top: 20px;
+}
+
+.titulo-secao:first-child {
+    margin-top: 0;
+}
+
+/* Aproxima o menu do banner no celular */
+@media (max-width: 768px) {
+    .cardapio {
+        padding-top: 0;
+    }
+
+    .titulo-secao:first-child {
+        margin-top: -45px;
+    }
+}
