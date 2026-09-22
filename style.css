@@ -602,63 +602,39 @@ body {
 }
 
 /* =========================================
-   COMPACTAÇÃO DE ESPAÇOS EM DISPOSITIVOS MÓVEIS (CELULAR)
-========================================= */
-
-/* =========================================
-   COMPACTAÇÃO MÁXIMA NO TOPO (TELEMÓVEL)
+   AJUSTES PARA DISPOSITIVOS MÓVEIS (CELULAR)
 ========================================= */
 
 @media (max-width: 768px) {
-    /* Reduz a altura do banner no celular */
-    .banner {
-        min-height: 330px !important;
-    }
-
-    /* Cola o aviso ao banner e reduz as margens */
-    .caixa-aviso-fechado {
-        margin: -10px 15px 5px !important;
-        font-size: 13px !important;
-        padding: 10px 12px !important;
-        position: relative !important;
-    }
 
     .cardapio {
-        padding-top: 0px !important;
-        padding-bottom: 10px !important;
-        position: relative !important;
+        padding-top: 0;
     }
 
-    /* Puxa o título de Hambúrgueres para bem perto do aviso */
-    .titulo-secao,
-    .titulo-secao:first-child {
+    /* Espaçamento geral das seções (Porções, Bebidas, etc.) */
+    .titulo-secao {
+        margin-top: 40px !important;
+        margin-bottom: 20px !important;
+        clear: both;
+    }
+
+    /* Aplica a margem negativa EXCLUSIVAMENTE no primeiro título (Hambúrgueres) */
+    .cardapio > .titulo-secao:first-of-type,
+    .cardapio > .titulo-secao:first-child {
         margin-top: -45px !important;
-        margin-bottom: 10px !important;
-        padding: 10px 12px !important;
-        position: relative !important;
-        top: 0 !important;
-    }
-
-    .titulo-secao h2 {
-        font-size: 22px !important;
-        margin-bottom: 2px !important;
-    }
-
-    .titulo-secao p {
-        font-size: 13px !important;
     }
 
     .produto {
         flex-direction: column;
-        margin-bottom: 10px !important;
+        margin-bottom: 15px;
     }
 
     .produto-imagem {
         width: 100%;
-        height: 180px !important;
+        height: 200px;
     }
 
     .produto-informacoes {
-        padding: 12px !important;
+        padding: 15px;
     }
 }
