@@ -612,12 +612,12 @@ body {
 @media (max-width: 768px) {
     /* Reduz a altura do banner no celular */
     .banner {
-        min-height: 200px !important;
+        min-height: 250px !important;
     }
 
     /* Cola o aviso ao banner e reduz as margens */
     .caixa-aviso-fechado {
-        margin: 5px 15px 5px !important;
+        margin: 5px 5px 5px !important;
         font-size: 13px !important;
         padding: 10px 12px !important;
         position: relative !important;
