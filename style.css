@@ -67,29 +67,21 @@ body {
 .cardapio {
     max-width: 1100px;
     margin: auto;
-    padding: 10px 20px 20px;
+    padding: 0px 20px 20px; /* Alterado o primeiro valor para 0px (tira o espaço extra no topo) */
 }
 
 .titulo-secao {
     text-align: center;
-    margin: 15px 0 20px;
+    margin: 15px 0 25px; /* Reduzido o margin-top de 25px para 15px */
     background-color: rgba(255, 255, 255, 0.92);
     padding: 16px 20px;
     border-radius: 12px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
-.titulo-secao h2 {
-    font-size: 32px;
-    margin-bottom: 8px;
-    color: #111;
-    font-weight: bold;
-}
-
-.titulo-secao p {
-    color: #444;
-    font-size: 16px;
-    font-weight: 500;
+/* Garante que o primeiro título (Hambúrgueres) fica bem colado */
+.titulo-secao:first-child {
+    margin-top: 15px;
 }
 
 /* =========================================
@@ -610,35 +602,20 @@ body {
 ========================================= */
 
 @media (max-width: 768px) {
-    /* Reduz a altura do banner no celular */
     .banner {
-        min-height: 330px !important;
-    }
-
-    /* Cola o aviso ao banner e reduz as margens */
-    .caixa-aviso-fechado {
-        margin: -10px 15px 5px !important;
-        font-size: 13px !important;
-        padding: 10px 12px !important;
-        position: relative !important;
+        min-height: 250px;
     }
 
     .cardapio {
-        padding-top: 0px !important;
-        padding-bottom: 10px !important;
-        position: relative !important;
+        padding: 0px 10px 10px; /* Reduzido o padding no topo para 0px no telemóvel */
     }
 
-    /* Puxa o título de Hambúrgueres para bem perto do aviso */
     .titulo-secao,
     .titulo-secao:first-child {
-        margin-top: 5px !important;
-        margin-bottom: 10px !important;
-        padding: 10px 12px !important;
-        position: relative !important;
-        top: 0 !important;
+        margin-top: 10px; /* Diminui a margem acima do título para colar ao banner */
+        margin-bottom: 15px;
+        padding: 12px 15px;
     }
-
     .titulo-secao h2 {
         font-size: 22px !important;
         margin-bottom: 2px !important;
