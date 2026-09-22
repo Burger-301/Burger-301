@@ -24,39 +24,6 @@ body {
 }
 
 /* =========================================
-   CABEÇALHO
-========================================= */
-
-.cabecalho {
-    background-color: #111;
-    color: white;
-    padding: 25px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
-}
-
-.logo h1 {
-    font-size: 28px;
-    letter-spacing: 1px;
-}
-
-.logo p {
-    color: #f28c28;
-    font-weight: bold;
-}
-
-.informacoes-atendimento {
-    text-align: right;
-    font-size: 14px;
-}
-
-.informacoes-atendimento strong {
-    color: #f28c28;
-}
-
-/* =========================================
    BANNER
 ========================================= */
 
@@ -69,11 +36,30 @@ body {
     background-repeat: no-repeat;
 }
 
-@media (max-width: 768px) {
-    .banner {
-        min-height: 220px;
-    }
+/* =========================================
+   AVISO FIXO DE FORA DO EXPEDIENTE
+========================================= */
+
+#aviso-expediente {
+    display: block;
+    width: 100%;
+    clear: both;
 }
+
+.caixa-aviso-fechado {
+    max-width: 1100px;
+    margin: 15px auto 5px;
+    padding: 14px 20px;
+    background-color: #222;
+    color: #fff;
+    border-left: 6px solid #f28c28;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 /* =========================================
    CARDÁPIO
 ========================================= */
@@ -81,20 +67,16 @@ body {
 .cardapio {
     max-width: 1100px;
     margin: auto;
-    padding: 20px 20px 60px;
+    padding: 10px 20px 20px;
 }
 
 .titulo-secao {
     text-align: center;
-    margin: 45px 0 30px;
+    margin: 15px 0 20px;
     background-color: rgba(255, 255, 255, 0.92);
-    padding: 18px 20px;
+    padding: 16px 20px;
     border-radius: 12px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
-}
-
-.titulo-secao:first-child {
-    margin-top: 0;
 }
 
 .titulo-secao h2 {
@@ -117,7 +99,7 @@ body {
 .produto {
     background-color: white;
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
@@ -270,11 +252,6 @@ body {
     resize: vertical;
 }
 
-.observacao-produto:focus {
-    outline: none;
-    border-color: #f28c28;
-}
-
 /* =========================================
    CARRINHO E FLUTUANTE
 ========================================= */
@@ -325,23 +302,11 @@ body {
 
 .carrinho-cabecalho h2 {
     font-size: 24px;
-    margin-bottom: 3px;
 }
 
 #quantidade-carrinho {
     color: #777;
     font-size: 14px;
-}
-
-.fechar-carrinho {
-    width: 38px;
-    height: 38px;
-    border: none;
-    border-radius: 50%;
-    background-color: #f5f5f5;
-    color: #222;
-    font-size: 26px;
-    cursor: pointer;
 }
 
 .itens-carrinho {
@@ -441,11 +406,6 @@ body {
     cursor: pointer;
 }
 
-.botao-finalizar:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
 .carrinho-flutuante {
     position: fixed;
     left: 50%;
@@ -510,12 +470,6 @@ body {
     justify-content: center;
 }
 
-.controle-quantidade button:hover {
-    background-color: #f28c28;
-    color: white;
-    border-color: #f28c28;
-}
-
 .controle-quantidade strong {
     min-width: 24px;
     text-align: center;
@@ -527,7 +481,7 @@ body {
 
 .dados-pedido {
     max-width: 700px;
-    margin: 0 auto 60px;
+    margin: 0 auto 30px;
     background-color: white;
     padding: 30px;
     border-radius: 12px;
@@ -559,12 +513,6 @@ body {
     font-family: inherit;
 }
 
-.campo input:focus,
-.campo textarea:focus {
-    outline: none;
-    border-color: #f28c28;
-}
-
 .opcao-pagamento {
     display: inline-block !important;
     margin-right: 20px;
@@ -590,10 +538,6 @@ body {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-}
-
-.botao-enviar:hover {
-    background-color: #d96f0c;
 }
 
 /* =========================================
@@ -625,8 +569,8 @@ body {
     background-color: #111;
     color: white;
     text-align: center;
-    padding: 35px 20px;
-    margin-top: 50px;
+    padding: 25px 20px;
+    margin-top: 15px;
 }
 
 .rodape h2 {
@@ -649,7 +593,7 @@ body {
 }
 
 .rodape .copyright {
-    margin-top: 20px;
+    margin-top: 15px;
     padding-top: 15px;
     border-top: 1px solid rgba(242, 140, 40, 0.35);
     color: #f28c28;
@@ -657,140 +601,57 @@ body {
     font-weight: 500;
 }
 
-/* ========================================= 
-   RESPONSIVIDADE (CELULARES E TABLETS)
-========================================= */ 
-
-@media (max-width: 768px) { 
-    /* Banner ajustado */
-    .banner { 
-        min-height: 250px !important; 
-    } 
-
-    /* Caixa do aviso de expediente bem posicionada */
-    .caixa-aviso-fechado { 
-        margin: 10px 15px 10px !important; 
-        font-size: 14px !important; 
-        padding: 12px 15px !important; 
-        position: relative !important;
-    } 
-
-    .cardapio { 
-        padding-top: 5px !important; 
-        padding-bottom: 10px !important; 
-        position: relative !important;
-    } 
-
-    /* Título da seção limpo e sem sobreposição */
-    .titulo-secao,
-    .titulo-secao:first-child { 
-        margin-top: 12px !important; 
-        margin-bottom: 15px !important; 
-        padding: 12px 15px !important; 
-        position: relative !important;
-        top: 0 !important;
-    } 
-
-    .titulo-secao h2 { 
-        font-size: 24px !important; 
-        margin-bottom: 4px !important; 
-    } 
-
-    .titulo-secao p { 
-        font-size: 14px !important; 
-    } 
-
-    /* Produtos mais próximos uns dos outros */
-    .produto { 
-        flex-direction: column; 
-        margin-bottom: 15px !important; 
-    } 
-
-    .produto-imagem { 
-        width: 100%; 
-        height: 200px !important; 
-    } 
-
-    .produto-informacoes { 
-        padding: 15px !important; 
-    } 
-}
 /* =========================================
-   AVISO FIXO DE FORA DO EXPEDIENTE
+   COMPACTAÇÃO DE ESPAÇOS EM DISPOSITIVOS MÓVEIS (CELULAR)
 ========================================= */
-
-#aviso-expediente {
-    display: block;
-    width: 100%;
-    clear: both;
-}
-
-.caixa-aviso-fechado {
-    max-width: 1100px;
-    margin: 15px auto 5px;
-    padding: 16px 20px;
-    background-color: #222;
-    color: #fff;
-    border-left: 6px solid #f28c28;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-@media (max-width: 768px) {
-    .caixa-aviso-fechado {
-        margin: 15px 15px 0;
-        font-size: 14px;
-        padding: 15px;
-    }
-}
-/* =========================================
-   CORREÇÃO DEFINITIVA DE SOBREPOSIÇÃO (CELULAR)
-========================================= */
-
-#aviso-expediente {
-    display: block !important;
-    width: 100% !important;
-    position: relative !important;
-    z-index: 1 !important;
-    margin-bottom: 20px !important;
-}
-
-.caixa-aviso-fechado {
-    position: relative !important;
-    margin: 20px auto 10px !important;
-    box-sizing: border-box !important;
-}
-
-#cardapio {
-    position: relative !important;
-    z-index: 2 !important;
-    clear: both !important;
-}
 
 @media (max-width: 768px) {
     .banner {
-        min-height: 280px !important;
+        min-height: 250px !important;
     }
 
     .caixa-aviso-fechado {
-        margin: 15px 15px 15px !important;
+        margin: 10px 15px 10px !important;
         font-size: 14px !important;
-        padding: 15px !important;
+        padding: 12px 15px !important;
+        position: relative !important;
     }
 
     .cardapio {
-        padding-top: 10px !important;
+        padding-top: 5px !important;
+        padding-bottom: 10px !important;
+        position: relative !important;
     }
 
-    /* Remove qualquer margem negativa que puxa o cartão para cima */
     .titulo-secao,
     .titulo-secao:first-child {
-        margin-top: 25px !important;
-        margin-bottom: 25px !important;
+        margin-top: 10px !important;
+        margin-bottom: 12px !important;
+        padding: 12px 15px !important;
         position: relative !important;
         top: 0 !important;
+    }
+
+    .titulo-secao h2 {
+        font-size: 24px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .titulo-secao p {
+        font-size: 14px !important;
+    }
+
+    .produto {
+        flex-direction: column;
+        margin-bottom: 12px !important;
+    }
+
+    .produto-imagem {
+        width: 100%;
+        height: 190px !important;
+    }
+
+    .produto-informacoes {
+        padding: 15px !important;
     }
 }
