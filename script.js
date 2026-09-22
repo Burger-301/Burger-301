@@ -17,13 +17,13 @@ let quantidadeAtual = 1;
 // 1. LISTA DE PRODUTOS (Hambúrgueres e Porções)(APAGUE "//" PARA BLOQUEAR E ADICIONE "//"PARA LIBERAR)
 const produtosEsgotados = [
     // "Poema Kids",
-     "Smash 301",
+    // "Smash 301",
     // "Clássico da Casa",
     // "Du'Chef",
     // "Poema Tropical",
     // "Porção de Fritas",
     // "Porção de Onion Rings",
-     "Fritas Feliz"
+    // "Fritas Feliz"
 ];
 
 // 2. LISTA DE ADICIONAIS
@@ -35,7 +35,7 @@ const adicionaisEsgotados = [
     // "Smash bovino 75g",
     // "Queijo cheddar",
     // "Queijo mussarela",
-     "Anéis de cebola",
+    // "Anéis de cebola",
     // "Pote de maionese extra"
 ];
 
