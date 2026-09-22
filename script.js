@@ -14,7 +14,7 @@ let quantidadeAtual = 1;
    - Para MARCAR como disponível: coloque as // no início do nome.
 ========================================= */
 
-// 1. LISTA DE PRODUTOS (Hambúrgueres e Porções)(APAGUE "//" PARA BLOQUEAR E ADICIONE "//"PARA LIBERAR)
+// 1. LISTA DE PRODUTOS (Hambúrgueres e Porções)
 const produtosEsgotados = [
     // "Poema Kids",
     // "Smash 301",
