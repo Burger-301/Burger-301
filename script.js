@@ -26,23 +26,10 @@ function pedidosEstaoAbertos() {
     return diaValido && horarioValido;
 }
 
-function verificarExibicaoAvisoExpediente() {
-    const containerAviso = document.getElementById("aviso-expediente");
-    if (!containerAviso) return;
-
-    if (!pedidosEstaoAbertos()) {
-        containerAviso.innerHTML = `
-            <div class="caixa-aviso-fechado">
-                🍔 Pedidos fechados no momento! Nosso atendimento funciona às sextas e sábados, das 19h30 às 23h. Burger 301 agradece pela compreensão! ❤️
-            </div>
-        `;
-    } else {
-        containerAviso.innerHTML = "";
-    }
+function mostrarAvisoForaDoExpediente() {
+    mostrarMensagem("🍔 Pedidos fechados no momento! Nosso atendimento funciona às sextas e sábados, das 19h30 às 23h. Burger 301 agradece pela compreensão! ❤️");
 }
 
-/* Executa a verificação assim que a página carrega */
-document.addEventListener("DOMContentLoaded", verificarExibicaoAvisoExpediente);
 /* =========================================
    ELEMENTOS DO DOM
 ========================================= */
