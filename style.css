@@ -715,3 +715,51 @@ body {
         padding: 15px;
     }
 }
+/* =========================================
+   CORREÇÃO DEFINITIVA DE SOBREPOSIÇÃO (CELULAR)
+========================================= */
+
+#aviso-expediente {
+    display: block !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 1 !important;
+    margin-bottom: 20px !important;
+}
+
+.caixa-aviso-fechado {
+    position: relative !important;
+    margin: 20px auto 10px !important;
+    box-sizing: border-box !important;
+}
+
+#cardapio {
+    position: relative !important;
+    z-index: 2 !important;
+    clear: both !important;
+}
+
+@media (max-width: 768px) {
+    .banner {
+        min-height: 280px !important;
+    }
+
+    .caixa-aviso-fechado {
+        margin: 15px 15px 15px !important;
+        font-size: 14px !important;
+        padding: 15px !important;
+    }
+
+    .cardapio {
+        padding-top: 10px !important;
+    }
+
+    /* Remove qualquer margem negativa que puxa o cartão para cima */
+    .titulo-secao,
+    .titulo-secao:first-child {
+        margin-top: 25px !important;
+        margin-bottom: 25px !important;
+        position: relative !important;
+        top: 0 !important;
+    }
+}
