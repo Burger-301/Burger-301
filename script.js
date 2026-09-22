@@ -7,6 +7,98 @@ let produtoAtual = null;
 let quantidadeAtual = 1;
 
 /* =========================================
+   CONTROLE RÁPIDO DE ESTOQUE / ESGOTADOS
+========================================= */
+
+// 1. Liste os LANCHES e PORÇÕES esgotados
+const produtosEsgotados = [
+    // "Smash 301",
+    // "Fritas Feliz"
+];
+
+// 2. Liste os ADICIONAIS esgotados
+const adicionaisEsgotados = [
+    "Bacon",
+    // "Abacaxi grelhado",
+    // "Queijo cheddar"
+];
+
+function atualizarEstoqueGeral() {
+    
+    /* --- A. BLOQUEIO DE PRODUTOS --- */
+    document.querySelectorAll(".produto").forEach(produto => {
+        const botao = produto.querySelector(".botao-adicionar");
+        if (!botao) return;
+
+        const nomeProduto = botao.dataset.produto;
+
+        if (produtosEsgotados.includes(nomeProduto)) {
+            botao.disabled = true;
+            botao.textContent = "ESGOTADO";
+            botao.style.backgroundColor = "#555555";
+            botao.style.cursor = "not-allowed";
+
+            const conteinerImagem = produto.querySelector(".produto-imagem");
+            if (conteinerImagem && !conteinerImagem.querySelector(".selo-esgotado")) {
+                conteinerImagem.style.position = "relative";
+                conteinerImagem.style.filter = "grayscale(100%) opacity(0.5)";
+
+                const selo = document.createElement("span");
+                selo.className = "selo-esgotado";
+                selo.textContent = "ESGOTADO";
+                selo.style.position = "absolute";
+                selo.style.top = "50%";
+                selo.style.left = "50%";
+                selo.style.transform = "translate(-50%, -50%)";
+                selo.style.backgroundColor = "rgba(0,0,0,0.85)";
+                selo.style.color = "#fff";
+                selo.style.padding = "6px 14px";
+                selo.style.borderRadius = "5px";
+                selo.style.fontWeight = "bold";
+                selo.style.fontSize = "14px";
+                selo.style.letterSpacing = "1px";
+                selo.style.zIndex = "2";
+
+                conteinerImagem.appendChild(selo);
+            }
+        }
+    });
+
+    /* --- B. BLOQUEIO DE ADICIONAIS --- */
+    document.querySelectorAll('#modal-produto input[name="adicional"]').forEach(checkbox => {
+        const nomeAdicional = checkbox.value;
+        const labelAdicional = checkbox.closest(".adicional");
+
+        if (adicionaisEsgotados.includes(nomeAdicional)) {
+            // Desativa a caixinha e desmarca se estivesse marcada
+            checkbox.disabled = true;
+            checkbox.checked = false;
+
+            if (labelAdicional) {
+                labelAdicional.style.opacity = "0.5";
+                labelAdicional.style.cursor = "not-allowed";
+
+                // Adiciona a indicação "(ESGOTADO)" apenas uma vez
+                const spanNome = labelAdicional.querySelector("span");
+                if (spanNome && !spanNome.textContent.includes("(ESGOTADO)")) {
+                    spanNome.textContent += " (ESGOTADO)";
+                    spanNome.style.textDecoration = "line-through";
+                }
+            }
+        }
+    });
+}
+
+// Executa automaticamente ao carregar a página e ao abrir o modal
+document.addEventListener("DOMContentLoaded", atualizarEstoqueGeral);
+document.addEventListener("click", function (e) {
+    if (e.target.closest(".botao-adicionar")) {
+        setTimeout(atualizarEstoqueGeral, 50);
+    }
+});
+
+
+/* =========================================
    CONTROLE AUTOMÁTICO DE HORÁRIO
 ========================================= */
 
