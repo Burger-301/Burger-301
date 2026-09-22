@@ -544,6 +544,11 @@ formularioPedido.addEventListener("submit", function (evento) {
     const telefone = "5551981061618";
     const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
 
+   // Guardar os dados do morador no navegador para futuros pedidos
+    localStorage.setItem("burger301_nome", nome);
+    localStorage.setItem("burger301_torre", torre);
+    localStorage.setItem("burger301_apartamento", apartamento);
+
     /* Abre o WhatsApp em nova aba */
     window.open(url, "_blank");
 
@@ -561,6 +566,17 @@ function mostrarMensagem(texto) {
 
     setTimeout(() => mensagem.remove(), 2500);
 }
+/* =========================================
+   CARREGAR DADOS SALVOS DO MORADOR
+========================================= */
+document.addEventListener("DOMContentLoaded", function () {
+    const nomeSalvo = localStorage.getItem("burger301_nome");
+    const torreSalva = localStorage.getItem("burger301_torre");
+    const apSalvo = localStorage.getItem("burger301_apartamento");
 
+    if (nomeSalvo) document.getElementById("nome").value = nomeSalvo;
+    if (torreSalva) document.getElementById("torre").value = torreSalva;
+    if (apSalvo) document.getElementById("apartamento").value = apSalvo;
+});
 /* INICIALIZAÇÃO */
 atualizarCarrinho();
