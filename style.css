@@ -61,18 +61,19 @@ body {
 ========================================= */
 
 .banner {
-    min-height: 430px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    width: 100%;
+    min-height: 380px;
     background-image: url("imagens/banner.jpg");
     background-size: cover;
     background-position: center;
-    color: white;
-    padding: 50px 20px;
+    background-repeat: no-repeat;
 }
 
+@media (max-width: 768px) {
+    .banner {
+        min-height: 220px;
+    }
+}
 /* =========================================
    CARDÁPIO
 ========================================= */
