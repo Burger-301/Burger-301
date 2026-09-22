@@ -124,7 +124,7 @@ document.addEventListener("click", function (e) {
 function pedidosEstaoAbertos() {
     // Se o bloqueio estiver desativado no topo do código, permite os pedidos a qualquer momento
     if (!bloqueioHorarioAtivo) {
-        return true;
+        return false;
     }
 
     const agora = new Date();
