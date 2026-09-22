@@ -617,7 +617,7 @@ body {
 
     /* Cola o aviso ao banner e reduz as margens */
     .caixa-aviso-fechado {
-        margin: 5px 5px 5px !important;
+        margin: 0px 15px 5px !important;
         font-size: 13px !important;
         padding: 10px 12px !important;
         position: relative !important;
@@ -632,7 +632,7 @@ body {
     /* Puxa o título de Hambúrgueres para bem perto do aviso */
     .titulo-secao,
     .titulo-secao:first-child {
-        margin-top: 9px !important;
+        margin-top: 5px !important;
         margin-bottom: 10px !important;
         padding: 10px 12px !important;
         position: relative !important;
