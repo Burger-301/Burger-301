@@ -7,42 +7,43 @@ let produtoAtual = null;
 let quantidadeAtual = 1;
 
 /* =========================================
-   CONTROLE RÁPIDO DE ESTOQUE / ESGOTADOS
-   
-   COMO USAR:
-   - Para MARCAR como esgotado: remova as // do início do nome.
-   - Para MARCAR como disponível: coloque as // no início do nome.
+   CONTROLE RÁPIDO DO SITE
 ========================================= */
 
-// 1. LISTA DE PRODUTOS (Hambúrgueres e Porções)
+// 1. ATIVAR / DESATIVAR BLOQUEIO DE HORÁRIO
+// true  = Bloqueia automaticamente fora de Sexta/Sábado (19h30 às 22h)
+// false = DESATIVA o bloqueio (permite fazer pedidos/testes a qualquer hora)
+const bloqueioHorarioAtivo = false;
+
+// 2. LISTA DE PRODUTOS ESGOTADOS (Hambúrgueres e Porções)
 const produtosEsgotados = [
     // "Poema Kids",
-     "Smash 301",
+    "Smash 301",
     // "Clássico da Casa",
     // "Du'Chef",
     // "Poema Tropical",
     // "Porção de Fritas",
     // "Porção de Onion Rings",
-     "Fritas Feliz"
+    "Fritas Feliz"
 ];
 
-// 2. LISTA DE ADICIONAIS
+// 3. LISTA DE ADICIONAIS ESGOTADOS
 const adicionaisEsgotados = [
     // "Bacon",
     // "Cebola caramelizada",
     // "Abacaxi grelhado",
     // "Blend bovino 150g",
-     "Smash bovino 75g",
+    "Smash bovino 75g",
     // "Queijo cheddar",
     // "Queijo mussarela",
-     "Anéis de cebola",
+    "Anéis de cebola",
     // "Pote de maionese extra"
 ];
 
-
 /* =========================================
-   FUNÇÃO AUTOMÁTICA DE ATUALIZAÇÃO
+   FUNÇÃO AUTOMÁTICA DE ATUALIZAÇÃO DE ESTOQUE
 ========================================= */
+
 function atualizarEstoqueGeral() {
     
     /* --- A. BLOQUEIO DE PRODUTOS --- */
@@ -115,16 +116,14 @@ document.addEventListener("click", function (e) {
     }
 });
 
-
-
 /* =========================================
    CONTROLE AUTOMÁTICO DE HORÁRIO
 ========================================= */
 
 function pedidosEstaoAbertos() {
-    // Se o bloqueio estiver desativado no topo do código, permite os pedidos a qualquer momento
+    // Se o bloqueio estiver desativado (false), libera os pedidos a qualquer momento
     if (!bloqueioHorarioAtivo) {
-        return false;
+        return true;
     }
 
     const agora = new Date();
@@ -134,8 +133,8 @@ function pedidosEstaoAbertos() {
 
     const horarioAtual = hora * 60 + minutos;
 
-    const inicio = 19 * 60 + 30; // 19h30 (1170 minutos)
-    const fim = 22 * 60;        // 22h00 (1320 minutos)
+    const inicio = 19 * 60 + 30; // 19h30
+    const fim = 22 * 60;        // 22h00
 
     const diaValido = (dia === 5 || dia === 6);
     const horarioValido = (horarioAtual >= inicio && horarioAtual < fim);
@@ -144,7 +143,7 @@ function pedidosEstaoAbertos() {
 }
 
 function mostrarAvisoForaDoExpediente() {
-    mostrarMensagem("🍔 Pedidos fechados no momento! Nosso atendimento funciona às sextas e sábados, das 19h30 às 23h. Burger 301 agradece pela compreensão! ❤️");
+    mostrarMensagem("🍔 Pedidos fechados no momento! Nosso atendimento funciona às sextas e sábados, das 19h30 às 22h. Burger 301 agradece pela compreensão! ❤️");
 }
 
 /* =========================================
@@ -561,5 +560,5 @@ function mostrarMensagem(texto) {
     setTimeout(() => mensagem.remove(), 2500);
 }
 
-/* INITIALIZAÇÃO */
+/* INICIALIZAÇÃO */
 atualizarCarrinho();
