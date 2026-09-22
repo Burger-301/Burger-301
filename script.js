@@ -544,13 +544,14 @@ formularioPedido.addEventListener("submit", function (evento) {
     const telefone = "5551981061618";
     const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
 
-/* Abre o WhatsApp em nova aba */
+    /* Abre o WhatsApp em nova aba */
     window.open(url, "_blank");
 
     /* Aguarda 1 segundo e recarrega a página zerada */
     setTimeout(function () {
         window.location.reload();
     }, 1000);
+});
 
 function mostrarMensagem(texto) {
     const mensagem = document.createElement("div");
