@@ -657,37 +657,38 @@ body {
     font-weight: 500;
 }
 
-/* =========================================
-   RESPONSIVIDADE
-========================================= */
+/* ========================================= 
+   RESPONSIVIDADE (CELULARES E TABLETS)
+========================================= */ 
 
-@media (max-width: 768px) {
-    .cabecalho {
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-    }
+@media (max-width: 768px) { 
+    .banner { 
+        min-height: 220px; 
+    } 
 
-    .informacoes-atendimento {
-        text-align: center;
-    }
+    .caixa-aviso-fechado { 
+        margin: 15px 15px 10px; 
+        font-size: 14px; 
+        padding: 15px; 
+    } 
 
-    .produto {
-        flex-direction: column;
-    }
+    .cardapio { 
+        padding-top: 10px; 
+    } 
 
-    .produto-imagem {
-        width: 100%;
-        height: 230px;
-    }
+    /* Garante que o primeiro título não suba sobre o aviso */
+    .titulo-secao:first-child { 
+        margin-top: 15px !important; 
+    } 
 
-    .cardapio {
-        padding-top: 0;
-    }
+    .produto { 
+        flex-direction: column; 
+    } 
 
-    .titulo-secao:first-child {
-        margin-top: -45px;
-    }
+    .produto-imagem { 
+        width: 100%; 
+        height: 230px; 
+    } 
 }
 /* =========================================
    AVISO FIXO DE FORA DO EXPEDIENTE
