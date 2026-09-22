@@ -638,3 +638,25 @@ body {
         padding: 15px;
     }
 }
+/* =========================================
+   BOTÃO DE DÚVIDAS NO WHATSAPP
+========================================= */
+
+.botao-duvidas-whatsapp {
+    display: inline-block;
+    margin: 15px 0;
+    padding: 10px 20px;
+    background-color: #25d366;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.botao-duvidas-whatsapp:hover {
+    background-color: #1eb954;
+    transform: translateY(-2px);
+}
