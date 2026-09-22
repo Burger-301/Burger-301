@@ -612,7 +612,7 @@ body {
 @media (max-width: 768px) {
     /* Reduz a altura do banner no celular */
     .banner {
-        min-height: 250px !important;
+        min-height: 350px !important;
     }
 
     /* Cola o aviso ao banner e reduz as margens */
@@ -632,7 +632,7 @@ body {
     /* Puxa o título de Hambúrgueres para bem perto do aviso */
     .titulo-secao,
     .titulo-secao:first-child {
-        margin-top: 5px !important;
+        margin-top: 9px !important;
         margin-bottom: 10px !important;
         padding: 10px 12px !important;
         position: relative !important;
