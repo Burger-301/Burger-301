@@ -18,7 +18,7 @@ const produtosEsgotados = [
 
 // 2. Liste os ADICIONAIS esgotados
 const adicionaisEsgotados = [
-    "Bacon",
+    // "Bacon",
     // "Abacaxi grelhado",
     // "Queijo cheddar"
 ];
