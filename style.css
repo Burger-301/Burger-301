@@ -612,7 +612,7 @@ body {
 @media (max-width: 768px) {
     /* Reduz a altura do banner no celular */
     .banner {
-        min-height: 350px !important;
+        min-height: 330px !important;
     }
 
     /* Cola o aviso ao banner e reduz as margens */
