@@ -632,7 +632,7 @@ body {
     /* Puxa o título de Hambúrgueres para bem perto do aviso */
     .titulo-secao,
     .titulo-secao:first-child {
-        margin-top: 5px !important;
+        margin-top: -45px !important;
         margin-bottom: 10px !important;
         padding: 10px 12px !important;
         position: relative !important;
@@ -660,24 +660,5 @@ body {
 
     .produto-informacoes {
         padding: 12px !important;
-    }
-}
-/* Aproxima o menu do banner */
-.cardapio {
-    padding-top: 20px;
-}
-
-.titulo-secao:first-child {
-    margin-top: 0;
-}
-
-/* Aproxima o menu do banner no celular */
-@media (max-width: 768px) {
-    .cardapio {
-        padding-top: 0;
-    }
-
-    .titulo-secao:first-child {
-        margin-top: -45px;
     }
 }
