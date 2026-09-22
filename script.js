@@ -115,22 +115,29 @@ document.addEventListener("click", function (e) {
     }
 });
 
-
+
+
 /* =========================================
    CONTROLE AUTOMÁTICO DE HORÁRIO
 ========================================= */
 
 function pedidosEstaoAbertos() {
+    // Se o bloqueio estiver desativado no topo do código, permite os pedidos a qualquer momento
+    if (!bloqueioHorarioAtivo) {
+        return true;
+    }
+
     const agora = new Date();
-    const dia = agora.getDay();
+    const dia = agora.getDay(); // 5 = Sexta, 6 = Sábado
     const hora = agora.getHours();
     const minutos = agora.getMinutes();
 
     const horarioAtual = hora * 60 + minutos;
-    const inicio = 19 * 60 + 30; // 19h30
-    const fim = 23 * 60;        // 23h00
 
-    const diaValido = (dia === 5 || dia === 6); // Sexta (5) ou Sábado (6)
+    const inicio = 19 * 60 + 30; // 19h30 (1170 minutos)
+    const fim = 22 * 60;        // 22h00 (1320 minutos)
+
+    const diaValido = (dia === 5 || dia === 6);
     const horarioValido = (horarioAtual >= inicio && horarioAtual < fim);
 
     return diaValido && horarioValido;
