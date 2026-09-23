@@ -18,13 +18,13 @@ const bloqueioHorarioAtivo = false;
 // 2. LISTA DE PRODUTOS ESGOTADOS (Hambúrgueres e Porções)
 const produtosEsgotados = [
     // "Poema Kids",
-    "Smash 301",
+    // "Smash 301",
     // "Clássico da Casa",
     // "Du'Chef",
     // "Poema Tropical",
     // "Porção de Fritas",
     // "Porção de Onion Rings",
-    "Fritas Feliz"
+    // "Fritas Feliz"
 ];
 
 // 3. LISTA DE ADICIONAIS ESGOTADOS
@@ -33,10 +33,10 @@ const adicionaisEsgotados = [
     // "Cebola caramelizada",
     // "Abacaxi grelhado",
     // "Blend bovino 150g",
-    "Smash bovino 75g",
+    // "Smash bovino 75g",
     // "Queijo cheddar",
     // "Queijo mussarela",
-    "Anéis de cebola",
+    // "Anéis de cebola",
     // "Pote de maionese extra"
 ];
 
