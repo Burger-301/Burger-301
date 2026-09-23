@@ -46,20 +46,21 @@ const adicionaisEsgotados = [
 
 function atualizarEstoqueGeral() {
     
-    /* --- A. BLOQUEIO DE PRODUTOS --- */
+    /* --- A. BLOQUEIO / RESTAURAÇÃO DE PRODUTOS --- */
     document.querySelectorAll(".produto").forEach(produto => {
         const botao = produto.querySelector(".botao-adicionar");
         if (!botao) return;
 
         const nomeProduto = botao.dataset.produto;
+        const conteinerImagem = produto.querySelector(".produto-imagem");
 
         if (produtosEsgotados.includes(nomeProduto)) {
+            // Marca como ESGOTADO
             botao.disabled = true;
             botao.textContent = "ESGOTADO";
             botao.style.backgroundColor = "#555555";
             botao.style.cursor = "not-allowed";
 
-            const conteinerImagem = produto.querySelector(".produto-imagem");
             if (conteinerImagem && !conteinerImagem.querySelector(".selo-esgotado")) {
                 conteinerImagem.style.position = "relative";
                 conteinerImagem.style.filter = "grayscale(100%) opacity(0.5)";
@@ -82,15 +83,28 @@ function atualizarEstoqueGeral() {
 
                 conteinerImagem.appendChild(selo);
             }
+        } else {
+            // Restaura para DISPONÍVEL
+            botao.disabled = false;
+            botao.textContent = "Adicionar";
+            botao.style.backgroundColor = "";
+            botao.style.cursor = "";
+
+            if (conteinerImagem) {
+                conteinerImagem.style.filter = "";
+                const selo = conteinerImagem.querySelector(".selo-esgotado");
+                if (selo) selo.remove();
+            }
         }
     });
 
-    /* --- B. BLOQUEIO DE ADICIONAIS --- */
+    /* --- B. BLOQUEIO / RESTAURAÇÃO DE ADICIONAIS --- */
     document.querySelectorAll('#modal-produto input[name="adicional"]').forEach(checkbox => {
         const nomeAdicional = checkbox.value;
         const labelAdicional = checkbox.closest(".adicional");
 
         if (adicionaisEsgotados.includes(nomeAdicional)) {
+            // Marca adicional como ESGOTADO
             checkbox.disabled = true;
             checkbox.checked = false;
 
@@ -104,11 +118,25 @@ function atualizarEstoqueGeral() {
                     spanNome.style.textDecoration = "line-through";
                 }
             }
+        } else {
+            // Restaura adicional para DISPONÍVEL
+            checkbox.disabled = false;
+
+            if (labelAdicional) {
+                labelAdicional.style.opacity = "";
+                labelAdicional.style.cursor = "";
+
+                const spanNome = labelAdicional.querySelector("span");
+                if (spanNome && spanNome.textContent.includes(" (ESGOTADO)")) {
+                    spanNome.textContent = spanNome.textContent.replace(" (ESGOTADO)", "");
+                    spanNome.style.textDecoration = "";
+                }
+            }
         }
     });
 }
 
-// Executa ao carregar e ao abrir qualquer modal
+// Executa ao carregar e ao interagir com produtos
 document.addEventListener("DOMContentLoaded", atualizarEstoqueGeral);
 document.addEventListener("click", function (e) {
     if (e.target.closest(".botao-adicionar")) {
@@ -121,7 +149,6 @@ document.addEventListener("click", function (e) {
 ========================================= */
 
 function pedidosEstaoAbertos() {
-    // Se o bloqueio estiver desativado (false), libera os pedidos a qualquer momento
     if (!bloqueioHorarioAtivo) {
         return true;
     }
@@ -223,6 +250,7 @@ botoesAdicionar.forEach(function (botao) {
         document.querySelectorAll('#modal-produto input[name="adicional"]').forEach(checkbox => checkbox.checked = false);
 
         ajustarAdicionaisPorPorcao(nome);
+        atualizarEstoqueGeral();
         atualizarTotalModal();
 
         modal.classList.add("ativo");
@@ -544,7 +572,7 @@ formularioPedido.addEventListener("submit", function (evento) {
     const telefone = "5551981061618";
     const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
 
-   // Guardar os dados do morador no navegador para futuros pedidos
+    // Guardar os dados do morador no navegador para futuros pedidos
     localStorage.setItem("burger301_nome", nome);
     localStorage.setItem("burger301_torre", torre);
     localStorage.setItem("burger301_apartamento", apartamento);
@@ -566,6 +594,7 @@ function mostrarMensagem(texto) {
 
     setTimeout(() => mensagem.remove(), 2500);
 }
+
 /* =========================================
    CARREGAR DADOS SALVOS DO MORADOR
 ========================================= */
@@ -578,6 +607,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (torreSalva) document.getElementById("torre").value = torreSalva;
     if (apSalvo) document.getElementById("apartamento").value = apSalvo;
 });
+
 /* =========================================
    REGISTO DO SERVICE WORKER (PWA)
 ========================================= */
@@ -588,5 +618,6 @@ if ('serviceWorker' in navigator) {
             .catch(erro => console.log('Falha ao registar PWA:', erro));
     });
 }
+
 /* INICIALIZAÇÃO */
 atualizarCarrinho();
