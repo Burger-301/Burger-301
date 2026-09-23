@@ -17,7 +17,7 @@ const bloqueioHorarioAtivo = false;
 
 // 2. LISTA DE PRODUTOS ESGOTADOS (Hambúrgueres e Porções)
 const produtosEsgotados = [
-    // "Poema Kids",
+     "Poema Kids",
     // "Smash 301",
     // "Clássico da Casa",
     // "Du'Chef",
