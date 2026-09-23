@@ -211,17 +211,6 @@ function formatarMoeda(valor) {
     });
 }
 
-const descricoes = {
-    "Poema Kids": "Uma opção especial para quem prefere um hambúrguer menor.",
-    "Smash 301": "Hambúrguer no estilo smash, preparado com carne bovina e ingredientes selecionados.",
-    "Clássico da Casa": "Uma combinação clássica da Burger 301 para quem gosta de um hambúrguer tradicional.",
-    "Du'Chef": "Pão brioche selado na manteiga, blend bovino de 150g, queijo cheddar, cebola caramelizada, bacon e maionese da casa.",
-    "Poema Tropical": "Uma opção especial da casa com uma combinação de sabores tropicais.",
-    "Porção de Fritas": "Porção de batatas fritas.",
-    "Porção de Onion Rings": "Anéis de cebola empanados e crocantes.",
-    "Fritas Feliz": "Porção especial de fritas."
-};
-
 /* =========================================
    MODAL DE PRODUTO
 ========================================= */
@@ -238,12 +227,22 @@ botoesAdicionar.forEach(function (botao) {
         const nome = botao.dataset.produto;
         const preco = parseFloat(botao.dataset.preco);
 
+        // CAPTURA A DESCRIÇÃO DIRETO DO CARDÁPIO (HTML)
+        const cardProduto = botao.closest(".produto");
+        let descricaoCapturada = "";
+        if (cardProduto) {
+            const elDescricao = cardProduto.querySelector(".descricao");
+            if (elDescricao) {
+                descricaoCapturada = elDescricao.innerText.trim();
+            }
+        }
+
         produtoAtual = { nome, preco };
         quantidadeAtual = 1;
         observacaoProduto.value = "";
 
         modalNomeProduto.textContent = nome;
-        modalDescricaoProduto.textContent = descricoes[nome] || "";
+        modalDescricaoProduto.innerText = descricaoCapturada; // Usa o texto exato do HTML
         modalPrecoProduto.textContent = formatarMoeda(preco);
         quantidadeProduto.textContent = quantidadeAtual;
 
