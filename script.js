@@ -13,7 +13,6 @@ let quantidadeAtual = 1;
 // 1. ATIVAR / DESATIVAR BLOQUEIO DE HORÁRIO
 // true  = Bloqueia automaticamente fora de Sexta/Sábado (19h30 às 22h)
 // false = DESATIVA o bloqueio (permite fazer pedidos/testes a qualquer hora)
-
 const bloqueioHorarioAtivo = true;
 
 // 2. LISTA DE PRODUTOS ESGOTADOS (Hambúrgueres e Porções)
@@ -137,14 +136,6 @@ function atualizarEstoqueGeral() {
     });
 }
 
-// Executa ao carregar e ao interagir com produtos
-document.addEventListener("DOMContentLoaded", atualizarEstoqueGeral);
-document.addEventListener("click", function (e) {
-    if (e.target.closest(".botao-adicionar")) {
-        setTimeout(atualizarEstoqueGeral, 50);
-    }
-});
-
 /* =========================================
    CONTROLE AUTOMÁTICO DE HORÁRIO
 ========================================= */
@@ -173,6 +164,39 @@ function pedidosEstaoAbertos() {
 function mostrarAvisoForaDoExpediente() {
     mostrarMensagem("🍔 Pedidos fechados no momento! Nosso atendimento funciona às sextas e sábados, das 19h30 às 22h. Burger 301 agradece pela compreensão! ❤️");
 }
+
+/* =========================================
+   ATUALIZAÇÃO AUTOMÁTICA DO STATUS NO CABEÇALHO
+========================================= */
+
+function atualizarStatusHeader() {
+    const statusLoja = document.querySelector(".status-loja");
+    if (!statusLoja) return;
+
+    const textoStatus = statusLoja.querySelector("span:last-child");
+
+    if (pedidosEstaoAbertos()) {
+        statusLoja.classList.remove("status-fechado");
+        statusLoja.classList.add("status-aberto");
+        if (textoStatus) textoStatus.textContent = "Aberto";
+    } else {
+        statusLoja.classList.remove("status-aberto");
+        statusLoja.classList.add("status-fechado");
+        if (textoStatus) textoStatus.textContent = "Fechado";
+    }
+}
+
+// Executa as verificações ao carregar a página
+document.addEventListener("DOMContentLoaded", function () {
+    atualizarEstoqueGeral();
+    atualizarStatusHeader();
+});
+
+document.addEventListener("click", function (e) {
+    if (e.target.closest(".botao-adicionar")) {
+        setTimeout(atualizarEstoqueGeral, 50);
+    }
+});
 
 /* =========================================
    ELEMENTOS DO DOM
