@@ -24,6 +24,117 @@ body {
 }
 
 /* =========================================
+   CABEÇALHO SUPERIOR (HEADER)
+========================================= */
+
+.header-topo {
+    position: relative; /* Fixado no topo inicial (não segue a rolagam) */
+    z-index: 1000;
+    background-color: #121212;
+    border-bottom: 1px solid #222222;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    margin-bottom: 0;
+}
+
+.header-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Lado Esquerdo: Logo + Status */
+.header-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-header {
+    font-size: 1.35rem; /* Fonte aumentada conforme solicitado */
+    font-weight: 800;
+    text-decoration: none !important;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.texto-burger {
+    color: #ffffff !important; /* Força cor branca evitando o azul padrão de links */
+}
+
+.texto-301 {
+    color: #f28c28 !important; /* Cor laranja da marca */
+}
+
+/* Status Aberto / Fechado */
+.status-loja {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.status-aberto {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-fechado {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.ponto-status {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+.status-aberto .ponto-status {
+    box-shadow: 0 0 6px #4ade80;
+}
+
+/* Lado Direito: Botão Dúvidas */
+.header-direita {
+    display: flex;
+    align-items: center;
+}
+
+.botao-whats-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #25d366;
+    color: #ffffff !important;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.botao-whats-header:hover {
+    background-color: #20ba5a;
+}
+
+.icone-whats {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+}
+
+/* =========================================
    BANNER
 ========================================= */
 
@@ -34,6 +145,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    margin-top: 0; /* Colado no cabeçalho */
 }
 
 /* =========================================
@@ -602,6 +714,29 @@ body {
 }
 
 /* =========================================
+   BOTÃO DE DÚVIDAS NO WHATSAPP (RODAPÉ)
+========================================= */
+
+.botao-duvidas-whatsapp {
+    display: inline-block;
+    margin: 15px 0;
+    padding: 10px 20px;
+    background-color: #25d366;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.botao-duvidas-whatsapp:hover {
+    background-color: #1eb954;
+    transform: translateY(-2px);
+}
+
+/* =========================================
    AJUSTES PARA DISPOSITIVOS MÓVEIS (CELULAR)
 ========================================= */
 
@@ -637,142 +772,13 @@ body {
     .produto-informacoes {
         padding: 15px;
     }
-}
-/* =========================================
-   BOTÃO DE DÚVIDAS NO WHATSAPP
-========================================= */
 
-.botao-duvidas-whatsapp {
-    display: inline-block;
-    margin: 15px 0;
-    padding: 10px 20px;
-    background-color: #25d366;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.botao-duvidas-whatsapp:hover {
-    background-color: #1eb954;
-    transform: translateY(-2px);
-}
-/* ==========================================
-   CABEÇALHO SUPERIOR (HEADER)
-   ========================================== */
-.header-topo {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #1a1a1a;
-    border-bottom: 1px solid #2a2a2a;
-    padding: 10px 16px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.header-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/* Lado Esquerdo: Logo + Status */
-.header-esquerda {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-header {
-    font-size: 1.25rem;
-    font-weight: 800;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-}
-
-.texto-burger {
-    color: #ffffff; /* BURGER em Branco */
-}
-
-.texto-301 {
-    color: #f28c28; /* 301 em Laranja */
-}
-
-/* Status Aberto / Fechado */
-.status-loja {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-}
-
-.status-aberto {
-    background-color: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
-    border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.status-fechado {
-    background-color: rgba(239, 68, 68, 0.15);
-    color: #f87171;
-    border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.ponto-status {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: currentColor;
-}
-
-.status-aberto .ponto-status {
-    box-shadow: 0 0 6px #4ade80;
-}
-
-/* Lado Direito: Botão Dúvidas */
-.header-direita {
-    display: flex;
-    align-items: center;
-}
-
-.botao-whats-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background-color: #25d366;
-    color: #ffffff;
-    padding: 6px 12px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-}
-
-.botao-whats-header:hover {
-    background-color: #20ba5a;
-}
-
-.icone-whats {
-    width: 16px;
-    height: 16px;
-    fill: currentColor;
-}
-
-@media (max-width: 600px) {
     .logo-header {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
     }
+
     .status-loja {
         padding: 2px 6px;
-        font-size: 0.7rem;
+        font-size: 0.68rem;
     }
 }
