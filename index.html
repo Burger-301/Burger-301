@@ -18,34 +18,36 @@
 
 <body>
 
-    <!-- CABEÇALHO SUPERIOR -->
+      <!-- CABEÇALHO SUPERIOR -->
     <header class="header-topo">
         <div class="header-container">
-            <!-- LOGO / NOME -->
-            <a href="#" class="logo-header">BURGER 301</a>
-
-            <!-- NAVEGAÇÃO E STATUS -->
-            <div class="header-acoes">
-                <!-- LINK PARA O CARDÁPIO -->
-                <a href="#cardapio" class="link-cardapio">Cardápio</a>
+            
+            <!-- ESQUERDA: LOGO + STATUS -->
+            <div class="header-esquerda">
+                <a href="#" class="logo-header">
+                    <span class="texto-burger">BURGER</span> <span class="texto-301">301</span>
+                </a>
                 
                 <!-- BADGE DE STATUS (ABERTO / FECHADO) -->
-                <!-- Para mudar para Fechado, troque a classe 'status-aberto' por 'status-fechado' -->
                 <div class="status-loja status-aberto">
                     <span class="ponto-status"></span>
                     <span>Aberto</span>
                 </div>
+            </div>
 
-                <!-- BOTÃO WHATSAPP -->
-                <a href="https://wa.me/5551981061618?text=Olá!%20Gostaria%20de%20fazer%20um%20pedido." target="_blank" class="botao-whats-header" aria-label="WhatsApp">
+            <!-- DIREITA: BOTÃO DÚVIDAS (WHATSAPP) -->
+            <div class="header-direita">
+                <a href="https://wa.me/5551981061618?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20o%20cardápio." target="_blank" class="botao-whats-header" aria-label="Dúvidas no WhatsApp">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icone-whats" viewBox="0 0 24 24">
                         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
                     </svg>
-                    <span class="texto-whats">WhatsApp</span>
+                    <span class="texto-whats">Dúvidas?</span>
                 </a>
             </div>
+
         </div>
     </header>
+
 
     <main>
         <!-- BANNER -->
