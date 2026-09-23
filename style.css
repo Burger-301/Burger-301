@@ -681,30 +681,26 @@ body {
     justify-content: space-between;
 }
 
+/* Lado Esquerdo: Logo + Status */
+.header-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .logo-header {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #f28c28;
     text-decoration: none;
     letter-spacing: 0.5px;
 }
 
-.header-acoes {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.texto-burger {
+    color: #ffffff; /* BURGER em Branco */
 }
 
-.link-cardapio {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: color 0.2s ease;
-}
-
-.link-cardapio:hover {
-    color: #f28c28;
+.texto-301 {
+    color: #f28c28; /* 301 em Laranja */
 }
 
 /* Status Aberto / Fechado */
@@ -712,7 +708,7 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 700;
@@ -741,7 +737,12 @@ body {
     box-shadow: 0 0 6px #4ade80;
 }
 
-/* Botão WhatsApp */
+/* Lado Direito: Botão Dúvidas */
+.header-direita {
+    display: flex;
+    align-items: center;
+}
+
 .botao-whats-header {
     display: flex;
     align-items: center;
@@ -766,11 +767,12 @@ body {
     fill: currentColor;
 }
 
-@media (max-width: 480px) {
-    .texto-whats {
-        display: none; /* Esconde a palavra WhatsApp em telas muito pequenas para economizar espaço */
+@media (max-width: 600px) {
+    .logo-header {
+        font-size: 1.1rem;
     }
-    .header-acoes {
-        gap: 8px;
+    .status-loja {
+        padding: 2px 6px;
+        font-size: 0.7rem;
     }
 }
