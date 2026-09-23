@@ -28,13 +28,13 @@ body {
 ========================================= */
 
 .header-topo {
-    position: relative; /* Fixado no topo inicial (não segue a rolagam) */
+    position: relative;
     z-index: 1000;
     background-color: #121212;
     border-bottom: 1px solid #222222;
-    padding: 8px 16px;
+    padding: 4px 16px; /* Espaçamento interno reduzido para diminuir a altura da barra */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    margin-bottom: 0;
+    margin-bottom: 0 !important; /* Remove qualquer margem inferior da barra */
 }
 
 .header-container {
@@ -54,7 +54,7 @@ body {
 }
 
 .logo-header {
-    font-size: 1.35rem; /* Fonte aumentada conforme solicitado */
+    font-size: 1.35rem;
     font-weight: 800;
     text-decoration: none !important;
     letter-spacing: 0.5px;
@@ -62,11 +62,11 @@ body {
 }
 
 .texto-burger {
-    color: #ffffff !important; /* Força cor branca evitando o azul padrão de links */
+    color: #ffffff !important;
 }
 
 .texto-301 {
-    color: #f28c28 !important; /* Cor laranja da marca */
+    color: #f28c28 !important;
 }
 
 /* Status Aberto / Fechado */
@@ -145,7 +145,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin-top: 0; /* Colado no cabeçalho */
+    margin-top: 0 !important; /* Encosta o banner diretamente na barra superior */
 }
 
 /* =========================================
