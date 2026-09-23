@@ -12,9 +12,7 @@ let quantidadeAtual = 1;
 
 // 1. ATIVAR / DESATIVAR BLOQUEIO DE HORÁRIO
 // true  = Bloqueia automaticamente fora de Sexta/Sábado (19h30 às 22h)
-// false = DESATIVA o bloqueio (permite 
-fazer pedidos/testes a qualquer hora)
-
+// false = DESATIVA o bloqueio (permite fazer pedidos/testes a qualquer hora)
 const bloqueioHorarioAtivo = true;
 
 // 2. LISTA DE PRODUTOS ESGOTADOS (Hambúrgueres e Porções)
@@ -244,7 +242,7 @@ botoesAdicionar.forEach(function (botao) {
         observacaoProduto.value = "";
 
         modalNomeProduto.textContent = nome;
-        modalDescricaoProduto.innerText = descricaoCapturada; // Usa o texto exato do HTML
+        modalDescricaoProduto.innerText = descricaoCapturada;
         modalPrecoProduto.textContent = formatarMoeda(preco);
         quantidadeProduto.textContent = quantidadeAtual;
 
@@ -552,73 +550,47 @@ formularioPedido.addEventListener("submit", function (evento) {
         }
 
         if (item.observacao) {
-            mensagem += `   Obs: ${item.observacao}\n`;
+            mensagem += `   📝 Obs: ${item.observacao}\n`;
         }
-        mensagem += "\n";
+        mensagem += `\n`;
     });
 
     mensagem += `*TOTAL: ${formatarMoeda(totalPedido)}*\n\n`;
-    mensagem += `*PAGAMENTO:* ${pagamento}\n`;
 
     if (pagamento === "Dinheiro" && troco) {
-        mensagem += `*TROCO:* ${troco}\n`;
+        mensagem += `Forma de pagamento: ${pagamento} (Troco para: ${troco})\n`;
+    } else {
+        mensagem += `Forma de pagamento: ${pagamento}\n`;
     }
 
     if (observacao) {
-        mensagem += `\n*OBSERVAÇÃO GERAL:*\n${observacao}\n`;
+        mensagem += `\nObservação geral: ${observacao}\n`;
     }
 
-    mensagem += "\n_Pedido realizado pelo site._";
+    const numeroWhatsApp = "5551981061618";
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
 
-    const telefone = "5551981061618";
-    const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-
-    // Guardar os dados do morador no navegador para futuros pedidos
-    localStorage.setItem("burger301_nome", nome);
-    localStorage.setItem("burger301_torre", torre);
-    localStorage.setItem("burger301_apartamento", apartamento);
-
-    /* Abre o WhatsApp em nova aba */
     window.open(url, "_blank");
-
-    /* Aguarda 1 segundo e recarrega a página zerada */
-    setTimeout(function () {
-        window.location.reload();
-    }, 1000);
 });
+
+/* =========================================
+   FUNÇÃO PARA EXIBIR MENSAGEM / BALÃO
+========================================= */
 
 function mostrarMensagem(texto) {
-    const mensagem = document.createElement("div");
-    mensagem.className = "mensagem-sucesso";
-    mensagem.textContent = texto;
-    document.body.appendChild(mensagem);
+    const mensagemExistente = document.querySelector(".mensagem-sucesso");
+    if (mensagemExistente) {
+        mensagemExistente.remove();
+    }
 
-    setTimeout(() => mensagem.remove(), 2500);
+    const div = document.createElement("div");
+    div.className = "mensagem-sucesso";
+    div.textContent = texto;
+    document.body.appendChild(div);
+
+    setTimeout(() => {
+        div.style.opacity = "0";
+        div.style.transition = "opacity 0.5s ease";
+        setTimeout(() => div.remove(), 500);
+    }, 4000);
 }
-
-/* =========================================
-   CARREGAR DADOS SALVOS DO MORADOR
-========================================= */
-document.addEventListener("DOMContentLoaded", function () {
-    const nomeSalvo = localStorage.getItem("burger301_nome");
-    const torreSalva = localStorage.getItem("burger301_torre");
-    const apSalvo = localStorage.getItem("burger301_apartamento");
-
-    if (nomeSalvo) document.getElementById("nome").value = nomeSalvo;
-    if (torreSalva) document.getElementById("torre").value = torreSalva;
-    if (apSalvo) document.getElementById("apartamento").value = apSalvo;
-});
-
-/* =========================================
-   REGISTO DO SERVICE WORKER (PWA)
-========================================= */
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(() => console.log('PWA registado com sucesso!'))
-            .catch(erro => console.log('Falha ao registar PWA:', erro));
-    });
-}
-
-/* INICIALIZAÇÃO */
-atualizarCarrinho();
