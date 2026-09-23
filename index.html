@@ -19,26 +19,29 @@
 <body>
 
     <!-- CABEÇALHO SUPERIOR -->
-    <header style="background-color: #121212; border-bottom: 1px solid #222222; padding: 8px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.4); margin-bottom: 0;">
-        <div style="max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; width: 100%;">
+    <header class="header-topo">
+        <div class="header-container">
             
-            <!-- ESQUERDA: LOGO AUMENTADO + STATUS ABERTO -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <a href="#" style="font-size: 1.35rem; font-weight: 800; text-decoration: none; white-space: nowrap; font-family: system-ui, -apple-system, sans-serif;">
-                    <span style="color: #ffffff;">BURGER</span> <span style="color: #f28c28;">301</span>
+            <!-- ESQUERDA: LOGO + STATUS -->
+            <div class="header-esquerda">
+                <a href="#" class="logo-header">
+                    <span class="texto-burger">BURGER</span> <span class="texto-301">301</span>
                 </a>
                 
-                <!-- BADGE ABERTO -->
-                <div style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; background-color: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); font-family: system-ui, -apple-system, sans-serif;">
-                    <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #4ade80; box-shadow: 0 0 6px #4ade80;"></span>
+                <!-- BADGE DE STATUS (ABERTO / FECHADO) -->
+                <div class="status-loja status-aberto">
+                    <span class="ponto-status"></span>
                     <span>Aberto</span>
                 </div>
             </div>
 
-            <!-- DIREITA: BOTÃO DÚVIDAS -->
-            <div>
-                <a href="https://wa.me/5551981061618?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20o%20cardápio." target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background-color: #25d366; color: #ffffff !important; padding: 6px 12px; border-radius: 6px; text-decoration: none !important; font-size: 0.8rem; font-weight: 700; font-family: system-ui, -apple-system, sans-serif; white-space: nowrap;">
-                    <svg xmlns="http://www.w3.org/2000/svg" style="width: 15px; height: 15px; fill: currentColor;" viewBox="0 0 24 24">
+            <!-- LINK OCULTO PARA EVITAR ERRO NO SCRIPT.JS -->
+            <a href="#cardapio" class="link-cardapio" style="display: none;">Cardápio</a>
+
+            <!-- DIREITA: BOTÃO DÚVIDAS (WHATSAPP) -->
+            <div class="header-direita">
+                <a href="https://wa.me/5551981061618?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20o%20cardápio." target="_blank" class="botao-whats-header" aria-label="Dúvidas no WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icone-whats" viewBox="0 0 24 24">
                         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
                     </svg>
                     <span>Dúvidas?</span>
@@ -47,6 +50,7 @@
 
         </div>
     </header>
+
     <main>
         <!-- BANNER -->
         <section class="banner"></section>
