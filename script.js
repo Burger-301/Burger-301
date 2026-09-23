@@ -578,5 +578,15 @@ document.addEventListener("DOMContentLoaded", function () {
     if (torreSalva) document.getElementById("torre").value = torreSalva;
     if (apSalvo) document.getElementById("apartamento").value = apSalvo;
 });
+/* =========================================
+   REGISTO DO SERVICE WORKER (PWA)
+========================================= */
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(() => console.log('PWA registado com sucesso!'))
+            .catch(erro => console.log('Falha ao registar PWA:', erro));
+    });
+}
 /* INICIALIZAÇÃO */
 atualizarCarrinho();
